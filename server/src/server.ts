@@ -9,11 +9,11 @@ const port = 3000;
 app.listen(port, () => {
   console.log('Server is running on port ' + port);
 });
+app.use(cors());
 
 app.use(express.json())
 app.use(router);
 
-app.use(cors());
 
 prisma.$connect()
     .then(() => console.log('Database is connected'))
