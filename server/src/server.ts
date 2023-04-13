@@ -1,4 +1,6 @@
-import express, { Application, Request, Response } from 'express';
+import express, { Application } from 'express';
+import router from './routes';
+import prisma from './databases';
 
 const app: Application = express();
 const port = 3000;
@@ -6,7 +8,9 @@ const port = 3000;
 app.listen(port, () => {
   console.log('Server is running on port ' + port);
 });
+app.use(express.json())
+app.use(router);
 
-app.use('/', (req: Request, res: Response) => {
-  res.send('Olá');
-});
+prisma.$connect()
+    .then(() => console.log('Database is connected'))
+    .catch((erro) => console.log(erro))
