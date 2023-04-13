@@ -1,4 +1,3 @@
-import styles from "./Header.module.css";
 import menuOpen from '../../assets/menu.svg'
 import menuClose from '../../assets/close.svg'
 import logo from '../../assets/logo.png'

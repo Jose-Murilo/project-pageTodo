@@ -1,7 +1,7 @@
 import { useState } from "react"
 import { useQuery } from "@tanstack/react-query"
 import axios from "axios"
-
+import { Container } from "./style";
 interface DataProps {
     id: number;
     titleTask: string
@@ -22,14 +22,25 @@ export function Tasks() {
     })
 
     return (
-        <>
-            <h1>Tasks</h1>
+        <Container>
+            <div className="ContainerCard">
+                <h1>Tasks</h1>
 
-            {data&& 
-                <div>
-                    {data.map(task => <p key={task.id}>{task.titleTask}</p>)}
-                </div>
-            }
-        </>
+                {data &&
+                    <div className="containerTask">
+                        {data.map(task => {
+                            return (
+                                <div className="cardTask">
+                                    <div className="containerTitle">
+                                        <h2 key={task.id}>{task.titleTask}</h2>
+                                    </div>
+                                    <p>{task.descriptionTask}</p>
+                                </div>
+                            )
+                        })}
+                    </div>
+                }
+            </div>
+        </Container>
     )
 }

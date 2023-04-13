@@ -4,14 +4,15 @@ export function Home() {
   return (
     <Container>
       <form>
+        <h1>Lista De Tarefas</h1>
         <section>
           <label htmlFor="task">Digite sua Tarefa</label>
-            <input
-              className="titleTasks" 
-              type="text" 
-              name="" 
-              id="task" 
-            />
+          <input
+            className="titleTasks"
+            type="text"
+            name=""
+            id="task"
+          />
         </section>
 
         <section>

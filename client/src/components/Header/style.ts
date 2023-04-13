@@ -8,7 +8,7 @@ export const Container = styled.div`
     justify-content: space-between;
     align-items: center;
     padding-right: 3.4rem;
-    font-size: 1.4rem;
+    font-size: 1.8rem;
     background-size: 500% 100%;
 
     ul {
