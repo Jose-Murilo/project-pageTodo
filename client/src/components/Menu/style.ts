@@ -1,5 +1,4 @@
 import styled from "styled-components";
-
 interface NavContainerProps {
     isToggle: boolean;
 }
@@ -25,8 +24,8 @@ export const NavContainer = styled.div<NavContainerProps>`
         text-align: center;
     }
 
-    ul li {
-        border-bottom: 1px solid ${({theme}) => theme["--green-500"]};
+    li .active {
+        border-bottom: 2px solid ${props => props.theme["--red-500"]};
     }
 
     @media (min-width: 768px) {
