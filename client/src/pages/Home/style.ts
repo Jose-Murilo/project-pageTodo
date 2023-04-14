@@ -18,6 +18,14 @@ export const Container = styled.div`
         padding-inline: 2rem;
     }
 
+    .error {
+        color: ${(props) => props.theme["--red-500"]};
+        display: block;
+        position: absolute;
+        font-size: 1.4rem;
+        margin-top: .3rem;
+    }
+
     .titleTasks {
         width: 100%;
         margin-top: 1rem;

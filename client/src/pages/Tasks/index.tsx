@@ -2,6 +2,7 @@ import { useState } from "react"
 import { useQuery } from "@tanstack/react-query"
 import axios from "axios"
 import { Container } from "./style";
+import { API } from "../../services/api";
 interface DataProps {
     id: number;
     titleTask: string
@@ -9,10 +10,10 @@ interface DataProps {
 }
 
 export function Tasks() {
-    const api = 'http://localhost:3000/task'
+    
 
     async function getTasks() {
-        const response = await axios.get(api)
+        const response = await API.get('')
         return response.data
     }
 

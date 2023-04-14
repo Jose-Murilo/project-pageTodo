@@ -1,23 +1,50 @@
 import { Container } from "./style";
+import { useForm, SubmitHandler } from "react-hook-form";
+import { API } from "../../services/api";
 
 export function Home() {
+  const { register, handleSubmit, formState: { errors }, reset } = useForm()
+
+  function onSubmit(data: any) {
+    async function sendTasks() {
+      const response = await API.post('', data)
+      return response.data 
+    }
+
+    sendTasks();
+    alert('Tarefa adicionada com sucesso.')
+    reset();
+  }
+
   return (
     <Container>
-      <form>
+      <form onSubmit={handleSubmit(onSubmit)}>
         <h1>Lista De Tarefas</h1>
         <section>
           <label htmlFor="task">Digite sua Tarefa</label>
           <input
             className="titleTasks"
             type="text"
-            name=""
+            {...register('titleTask', { required: true })}
+            placeholder="Digite sua tarefa"
             id="task"
-          />
+            />
+          {errors.titleTask && <span className="error">Este campo é obrigatório!</span>}
         </section>
 
         <section>
           <label htmlFor="">Digite a descrição da Tarefa</label>
-          <textarea className="taskDescription" maxLength={350} name="" id="" cols={30} rows={10}></textarea>
+          <textarea 
+            className="taskDescription" 
+            maxLength={350} 
+            {...register('descriptionTask', { required: true })}
+            id="" 
+            cols={30} 
+            rows={10}
+            placeholder="Digite a descrição da Tarefa"
+            >
+          </textarea>
+          {errors.descriptionTask && <span className="error">Este campo é obrigatório!</span>}
         </section>
 
         <button className="buttonTasks">Adicionar</button>
