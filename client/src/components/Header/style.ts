@@ -3,7 +3,7 @@ import styled from "styled-components";
 export const Container = styled.div`
     display: flex;
     max-width: 100%;
-    min-height: 12.6rem;
+    height: 12.6rem;
     background: ${(({ theme }) => theme["--green-500"])};
     justify-content: space-between;
     align-items: center;
@@ -23,6 +23,10 @@ export const Container = styled.div`
         color: white;
         font-weight: bold;
         transition: 400ms;
+    }
+
+    li .active {
+        border-bottom: 2px solid ${props => props.theme["--red-500"]};
     }
 
     @media(max-width: 767px) {

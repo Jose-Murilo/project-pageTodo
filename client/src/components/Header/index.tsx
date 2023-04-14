@@ -4,7 +4,7 @@ import logo from '../../assets/logo.png'
 import { useState } from "react";
 import { Menu } from "../Menu";
 import { Container, ImgToggle } from "./style";
-import { Link } from "react-router-dom";
+import { NavLink } from "react-router-dom";
 
 export function Header() {
   const [toggle, setToggle] = useState<boolean>(false)
@@ -16,20 +16,20 @@ export function Header() {
         <nav className='navHeader'>
           <ul>
             <li>
-              <Link to="/">HOME</Link>
+              <NavLink className={(NavLink) => NavLink.isActive ? 'active' : '' } to="/">HOME</NavLink>
             </li>
             <li>
-              <Link to="/tasks">TASKS</Link>
+              <NavLink className={(NavLink) => NavLink.isActive ? 'active' : '' } to="/tasks">TASKS</NavLink>
             </li>
             <li>
-              <Link to="/about">ABOUT</Link>
+              <NavLink className={(NavLink) => NavLink.isActive ? 'active' : '' } to="/about">ABOUT</NavLink>
             </li>
           </ul>
         </nav>
 
 
         <ImgToggle src={toggle ? menuClose : menuOpen} onClick={() => setToggle(prev => !prev)} alt="" />
-        <Menu isToggle={toggle} />
+        <Menu isToggle={toggle} onSetToggle={setToggle} />
       </div>
     </Container>
   );
