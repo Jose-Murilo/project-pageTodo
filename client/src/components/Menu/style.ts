@@ -11,6 +11,7 @@ export const NavContainer = styled.div<NavContainerProps>`
     justify-content: center;
     background: ${({theme}) => theme["--gray-900"]};
     position: absolute;
+    z-index: 1;
     left: 0;
     bottom: 0;
     top: 12.6rem;
