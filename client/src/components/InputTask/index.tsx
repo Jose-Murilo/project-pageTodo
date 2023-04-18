@@ -1,83 +1,87 @@
-import { useState, useContext } from 'react'
+import { useState, useContext, ChangeEvent, useEffect } from 'react';
 import { Container } from "./style";
-import { Context } from '../../context';
+import { useForm } from 'react-hook-form';
+import { TaskContext } from '../../context';
 
 type InputTaskProps = {
     titleTask: string;
     descriptionTask: string;
-    taskData: {
+    taskData?: {
         descriptionTask: string;
         id: number;
         titleTask: string;
     }
 }
-
 interface TaskDataForm {
     id: number;
     title: string;
     description: string;
 }
 
-export function InputTask({ titleTask, descriptionTask, taskData }: InputTaskProps) {
-    // console.log(taskData);
+export function InputTask({ titleTask, descriptionTask }: InputTaskProps) {
+    const { register, handleSubmit, formState: { errors }, reset } = useForm()
+    const { taskData } = useContext(TaskContext)
 
-    const teste = {
-        title: taskData.titleTask
-    }
-
-    console.log(teste);
-    
     const [taskDataForm, setTaskDataForm] = useState<TaskDataForm>({
-        id: taskData.id,
-        title: teste.title,
-        description: taskData.descriptionTask
+        id: 0,
+        title: '',
+        description: ''
     });
 
-    console.log(taskDataForm);
+    useEffect(() => {
+        if (taskData) {
+            setTaskDataForm({
+                id: taskData.id,
+                title: taskData.titleTask,
+                description: taskData.descriptionTask
+            });
+        }
+    }, [taskData]);
 
-    function handleInputsChange(event) {
+    function onSubmit(data: any) {
+        console.log(data);
+    }
+
+    function handleInputsChange(event: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) {
         const { name, value } = event.target;
         setTaskDataForm({
             ...taskDataForm,
             [name]: value
         })
     }
-    
+
     return (
         <Container>
-            <section>
-                <label htmlFor="task">{titleTask}</label>
-                <input
-                    className="titleTasks"
-                    type="text"
-                    name="title"
-                    value={taskDataForm.title}
-                    onChange={handleInputsChange}
-                    // {...register('titleTask', { required: true })}
-                    placeholder="Digite sua tarefa"
-                    id="task"
-                />
-                {/* {errors.titleTask && <span className="error">Este campo é obrigatório!</span>} */}
-            </section>
-
-            <section>
-                <label htmlFor="">{descriptionTask}</label>
-                <textarea
-                    className="taskDescription"
-                    maxLength={350}
-                    // {...register('descriptionTask', { required: true })}
-                    id=""
-                    cols={30}
-                    rows={10}
-                    name="description"
-                    value={taskDataForm.description}
-                    onChange={handleInputsChange}
-                    placeholder="Digite a descrição da Tarefa"
-                >
-                </textarea>
-                {/* {errors.descriptionTask && <span className="error">Este campo é obrigatório!</span>} */}
-            </section>
-
+            <form onSubmit={handleSubmit(onSubmit)}>
+                <section>
+                    <label htmlFor="task">{titleTask}</label>
+                    <input
+                        className="titleTasks"
+                        type="text"
+                        {...register('title', { required: true })}
+                        value={taskDataForm.title}
+                        onChange={handleInputsChange}
+                        placeholder="Digite sua tarefa"
+                        id="task"
+                    />
+                </section>
+                <section>
+                    <label htmlFor="">{descriptionTask}</label>
+                    <textarea
+                        className="taskDescription"
+                        maxLength={350}
+                        {...register('description', { required: true })}
+                        id=""
+                        cols={30}
+                        rows={10}
+                        value={taskDataForm.description}
+                        onChange={handleInputsChange}
+                        placeholder="Digite a descrição da Tarefa"
+                    >
+                    </textarea>
+                </section>
+                <button>Alterar</button>
+            </form>
         </Container>
     )
 }
