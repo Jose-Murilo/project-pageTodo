@@ -12,7 +12,7 @@ export const GlobalStyle = createGlobalStyle`
         font-family: 'Inter', sans-serif;
         font-family: 'Inter', 700;
     }
-
+    
     body {
         font-size: 1.6rem;
     }
