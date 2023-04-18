@@ -48,10 +48,10 @@ export function ContextProvider({ children }: ContextProviderProps) {
             value={{
                 data: [],
                 setData: () => { },
-                taskData: { id: 0, titleTask: "", descriptionTask: "" },
-                setTaskData: () => { },
-                showModal: false,
-                setShowModal: () => { }
+                taskData,
+                setTaskData,
+                showModal,
+                setShowModal,
             }}
         >
             {children}
