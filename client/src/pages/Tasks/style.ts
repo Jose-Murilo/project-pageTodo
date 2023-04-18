@@ -23,11 +23,11 @@ export const Container = styled.div`
         flex-wrap: wrap;
         gap: 3rem;
     }
-
+    
     .cardTask {
         width: 27rem;
         height: 27rem;
-        padding: 1rem;
+        position: relative;
         
         background: ${props => props.theme["--gray-800"]};
         border-radius: 1rem;
@@ -42,6 +42,8 @@ export const Container = styled.div`
             max-width: 27rem;
             word-wrap: break-word;
         }
+
+        transition: all 300ms;
     }
     
     .containerTitle {
@@ -56,6 +58,33 @@ export const Container = styled.div`
         overflow: hidden;
     }
 
+    .viewMore {
+        width: 100%;
+        position: absolute;
+        border-radius: .8rem;
+        width: 100%;
+        display: flex;
+        background: ${props => props.theme["--gray-700"]};
+        padding-inline: 1rem;
+        bottom: 0;
+    }
+
+    .buttonViewMore {
+        background: ${props => props.theme["--gray-700"]};
+        border: 0;
+        color: white;
+        cursor: pointer;
+        padding: 1rem;
+        border-radius: 1rem;
+    }
+
+    .trashTask {
+        position: absolute;
+        top: 1.2rem;
+        cursor: pointer;
+        right: .8rem;
+    }
+
     .containerEmpty {
         margin-top: 7rem;
 
@@ -67,4 +96,44 @@ export const Container = styled.div`
 
 export const EmptyText = styled.p`
     color: ${props => props.theme["--gray-400"]};
+`
+
+type ModalProps = {
+    modal: boolean;
+}
+
+export const Modal = styled.div<ModalProps>`
+    display: ${props => props.modal ? 'flex' : 'none'};
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    width: 100%;
+    height: 100vh;
+    
+    .backdrop {
+        background: rgba(0, 0, 0, .7);
+        width: 100%;
+        height: 100%;
+        z-index: 1;
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        backdrop-filter: blur(6px);
+    }
+    
+    .modal-content {
+        display: flex;
+        flex-direction: column;
+        background: ${props => props.theme["--gray-800"]};
+        z-index: 2;
+        margin: auto;
+        padding-inline: 2rem;
+        max-width: 700px;
+        height: 500px;
+        border-radius: 20px;
+    }
 `
