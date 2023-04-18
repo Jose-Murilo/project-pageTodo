@@ -1,20 +1,42 @@
 import { createContext, useState } from 'react'
 import { API } from '../services/api';
 
-export const Context = createContext({})
+type TaskData = {
+    id: number;
+    titleTask: string;
+    descriptionTask: string;
+}
 
+type ContextProps = {
+    taskData: TaskData;
+    setTaskData: React.Dispatch<React.SetStateAction<TaskData>>;
+    data: DataProps[];
+    setData: React.Dispatch<React.SetStateAction<DataProps[]>>;
+    showModal: boolean;
+    setShowModal: React.Dispatch<React.SetStateAction<boolean>>;
+};
+
+export const TaskContext = createContext({} as ContextProps)
+
+type ContextProviderProps = {
+    children: React.ReactElement
+}
 export interface DataProps {
     id: number;
     titleTask: string
     descriptionTask: string;
 }[]
 
-type ContextProviderProps = {
-    children: React.ReactElement
-}
-
 export function ContextProvider({ children }: ContextProviderProps) {
     const [data, setData] = useState<DataProps[]>([])
+    const [taskData, setTaskData] = useState<TaskData>({
+        id: 0,
+        titleTask: '',
+        descriptionTask: ''
+    });
+    const [showModal, setShowModal] = useState(false)
+
+
     async function getTasks() {
         const response = await API.get('')
         const data = response.data
@@ -22,8 +44,17 @@ export function ContextProvider({ children }: ContextProviderProps) {
     }
 
     return (
-        <Context.Provider value={{getTasks, data}}>
+        <TaskContext.Provider
+            value={{
+                data: [],
+                setData: () => { },
+                taskData: { id: 0, titleTask: "", descriptionTask: "" },
+                setTaskData: () => { },
+                showModal: false,
+                setShowModal: () => { }
+            }}
+        >
             {children}
-        </Context.Provider>
+        </TaskContext.Provider>
     )
 }
