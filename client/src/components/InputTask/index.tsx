@@ -2,6 +2,7 @@ import { useState, useContext, ChangeEvent, useEffect } from 'react';
 import { Container } from "./style";
 import { useForm } from 'react-hook-form';
 import { TaskContext } from '../../context';
+import { API } from '../../services/api';
 
 type InputTaskProps = {
     titleTask: string;
@@ -20,7 +21,7 @@ interface TaskDataForm {
 
 export function InputTask({ titleTask, descriptionTask }: InputTaskProps) {
     const { register, handleSubmit, formState: { errors }, reset } = useForm()
-    const { taskData } = useContext(TaskContext)
+    const { taskData, closeModal } = useContext(TaskContext)
 
     const [taskDataForm, setTaskDataForm] = useState<TaskDataForm>({
         id: 0,
@@ -38,8 +39,16 @@ export function InputTask({ titleTask, descriptionTask }: InputTaskProps) {
         }
     }, [taskData]);
 
-    function onSubmit(data: any) {
-        console.log(data);
+    function onSubmit() {
+        updateTasks();
+    }
+
+    async function updateTasks() {
+        API.put(`/${taskData.id}`, taskDataForm)
+            .then(res => console.log(res.data))
+            .catch(error => alert(error.response.data))
+            closeModal()
+        console.log(taskDataForm);
     }
 
     function handleInputsChange(event: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) {
