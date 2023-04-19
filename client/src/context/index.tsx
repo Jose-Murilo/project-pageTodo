@@ -14,6 +14,8 @@ type ContextProps = {
     setData: React.Dispatch<React.SetStateAction<DataProps[]>>;
     showModal: boolean;
     setShowModal: React.Dispatch<React.SetStateAction<boolean>>;
+    closeModal: () => void;
+    getTasks: () => Promise<void>;
 };
 
 export const TaskContext = createContext({} as ContextProps)
@@ -35,13 +37,13 @@ export function ContextProvider({ children }: ContextProviderProps) {
         descriptionTask: ''
     });
     const [showModal, setShowModal] = useState(false)
+    const closeModal = () => setShowModal(false)
 
-
-    async function getTasks() {
-        const response = await API.get('')
-        const data = response.data
-        setData(data)
-    }
+    const getTasks = async () => {
+        const response = await API.get<DataProps>('');
+        const newData = await response.data;
+        setData([newData]);
+    };
 
     return (
         <TaskContext.Provider
@@ -52,6 +54,8 @@ export function ContextProvider({ children }: ContextProviderProps) {
                 setTaskData,
                 showModal,
                 setShowModal,
+                closeModal,
+                getTasks
             }}
         >
             {children}
