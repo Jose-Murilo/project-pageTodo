@@ -3,10 +3,8 @@
 import { useEffect, useContext } from 'react'
 import Empty from '../../assets/Empty.svg'
 import { Container, EmptyText } from "./style";
-import { BsTrash3Fill } from 'react-icons/bs'
 import { API } from "../../services/api";
 import { useState } from "react";
-import { InputTask } from "../../components/InputTask";
 import { TaskContext } from '../../context';
 import { Modal } from '../../components/Modal';
 import { CardTask } from '../../components/CardTask';
@@ -18,7 +16,6 @@ export interface DataProps {
 
 export function Tasks() {
     const [data, setData] = useState<DataProps[]>([])
-
     const { setTaskData, setShowModal } = useContext(TaskContext)
 
     async function getTasks() {
@@ -33,6 +30,7 @@ export function Tasks() {
 
     async function deleteTasks(id: number) {
         const response = await API.delete(`/${id}`)
+        getTasks()
         return response
     }
 
