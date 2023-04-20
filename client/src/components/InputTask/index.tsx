@@ -3,24 +3,19 @@ import { Container } from "./style";
 import { useForm } from 'react-hook-form';
 import { TaskContext } from '../../context';
 import { API } from '../../services/api';
+import { DataProps } from '../../@types/TypeApi';
 
 type InputTaskProps = {
     titleTask: string;
     descriptionTask: string;
     deleteTasks: (taskID: number) => void
 }
-interface TaskDataForm {
-    created_at: string;
-    id: number;
-    titleTask: string
-    descriptionTask: string;
-    updated_at: string
-}
+
+interface TaskDataForm extends DataProps {}
 
 export function InputTask({ titleTask, descriptionTask, deleteTasks }: InputTaskProps) {
     const { register, handleSubmit } = useForm()
     const { taskData, closeModal, fetchTasks } = useContext(TaskContext)
-
     const [taskDataForm, setTaskDataForm] = useState<TaskDataForm>({
         created_at: '',
         id: 0,
@@ -29,7 +24,7 @@ export function InputTask({ titleTask, descriptionTask, deleteTasks }: InputTask
         updated_at: ''
     });
 
-    const taskCreatedAt = new Date(taskDataForm.created_at).toLocaleString()
+    const taskCreatedDate = new Date(taskDataForm.created_at).toLocaleString()
     
     useEffect(() => {
         if (taskData) {
@@ -106,7 +101,7 @@ export function InputTask({ titleTask, descriptionTask, deleteTasks }: InputTask
             </form>
 
             <div>
-                Tarefa Criada: {taskCreatedAt}
+                Tarefa Criada: {taskCreatedDate}
             </div>
         </Container>
     )
