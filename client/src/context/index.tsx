@@ -1,22 +1,24 @@
-import { createContext, useState } from 'react'
+import { createContext, useEffect, useState } from 'react'
 import { API } from '../services/api';
 import { DataProps } from '../@types/TypeApi'
 
 type TaskData = {
+    created_at: string;
     id: number;
-    titleTask: string;
+    titleTask: string
     descriptionTask: string;
+    updated_at: string
 }
 
 type ContextProps = {
     taskData: TaskData;
     setTaskData: React.Dispatch<React.SetStateAction<TaskData>>;
-    data: DataProps[];
+    task: DataProps[];
     setData: React.Dispatch<React.SetStateAction<DataProps[]>>;
     showModal: boolean;
     setShowModal: React.Dispatch<React.SetStateAction<boolean>>;
     closeModal: () => void;
-    getTasks: () => Promise<void>;
+    fetchTasks: () => Promise<void>;
 };
 
 export const TaskContext = createContext({} as ContextProps)
@@ -26,32 +28,34 @@ type ContextProviderProps = {
 }
 
 export function ContextProvider({ children }: ContextProviderProps) {
-    const [data, setData] = useState<DataProps[]>([])
+    const [task, setData] = useState<DataProps[]>([])
     const [taskData, setTaskData] = useState<TaskData>({
+        created_at: '',
         id: 0,
         titleTask: '',
-        descriptionTask: ''
-    });
+        descriptionTask: '',
+        updated_at: ''
+});
     const [showModal, setShowModal] = useState(false)
     const closeModal = () => setShowModal(false)
 
-    const getTasks = async () => {
-        const response = await API.get<DataProps>('');
+    const fetchTasks = async () => {
+        const response = await API.get<DataProps[]>('');
         const newData = await response.data;
-        setData([newData]);
+        setData(newData);
     };
 
     return (
         <TaskContext.Provider
             value={{
-                data: [],
+                task,
                 setData: () => { },
                 taskData,
                 setTaskData,
                 showModal,
                 setShowModal,
                 closeModal,
-                getTasks
+                fetchTasks
             }}
         >
             {children}
