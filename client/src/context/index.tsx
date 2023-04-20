@@ -1,24 +1,19 @@
-import { createContext, useEffect, useState } from 'react'
+import { createContext, useState } from 'react'
 import { API } from '../services/api';
 import { DataProps } from '../@types/TypeApi'
 
-type TaskData = {
-    created_at: string;
-    id: number;
-    titleTask: string
-    descriptionTask: string;
-    updated_at: string
-}
+type TaskData = DataProps
 
 type ContextProps = {
     taskData: TaskData;
     setTaskData: React.Dispatch<React.SetStateAction<TaskData>>;
-    task: DataProps[];
-    setData: React.Dispatch<React.SetStateAction<DataProps[]>>;
+    tasks: DataProps[];
+    setTasks: React.Dispatch<React.SetStateAction<DataProps[]>>;
     showModal: boolean;
     setShowModal: React.Dispatch<React.SetStateAction<boolean>>;
     closeModal: () => void;
     fetchTasks: () => Promise<void>;
+    deleteTasks: (taskID: number) => void;
 };
 
 export const TaskContext = createContext({} as ContextProps)
@@ -28,34 +23,47 @@ type ContextProviderProps = {
 }
 
 export function ContextProvider({ children }: ContextProviderProps) {
-    const [task, setData] = useState<DataProps[]>([])
+    // States
+    const [tasks, setTasks] = useState<DataProps[]>([])
     const [taskData, setTaskData] = useState<TaskData>({
         created_at: '',
         id: 0,
         titleTask: '',
         descriptionTask: '',
         updated_at: ''
-});
+    });
     const [showModal, setShowModal] = useState(false)
-    const closeModal = () => setShowModal(false)
 
+    // functions
     const fetchTasks = async () => {
         const response = await API.get<DataProps[]>('');
         const newData = await response.data;
-        setData(newData);
+        setTasks(newData);
     };
+
+    const closeModal = () => setShowModal(false)
+
+    async function deleteTasks(id: number) {
+        const confirm = window.confirm('Tem certeza que deseja apagar essa tarefa?')
+        if (confirm) {
+            const response = await API.delete(`/${id}`)
+            fetchTasks()
+            return response
+        }
+    }
 
     return (
         <TaskContext.Provider
             value={{
-                task,
-                setData: () => { },
+                tasks,
+                setTasks,
                 taskData,
                 setTaskData,
                 showModal,
                 setShowModal,
                 closeModal,
-                fetchTasks
+                fetchTasks,
+                deleteTasks
             }}
         >
             {children}
