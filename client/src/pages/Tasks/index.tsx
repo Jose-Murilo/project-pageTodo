@@ -8,11 +8,6 @@ import { useState } from "react";
 import { TaskContext } from '../../context';
 import { Modal } from '../../components/Modal';
 import { CardTask } from '../../components/CardTask';
-export interface DataProps {
-    id: number;
-    titleTask: string
-    descriptionTask: string;
-}[]
 
 export function Tasks() {
     // const [data, setData] = useState<DataProps[]>([])
@@ -25,12 +20,6 @@ export function Tasks() {
         )
     })
     console.log(filterTask);
-
-    // async function fetchTasks() {
-    //     const response = await API.get('')
-    //     const data = response.data
-    //     setData(data)
-    // }
 
     useEffect(() => {
         fetchTasks()
