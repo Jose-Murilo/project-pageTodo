@@ -19,9 +19,9 @@ export function Home() {
   return (
     <Container>
       <form onSubmit={handleSubmit(onSubmit)}>
-        <h1>Lista De Tarefas</h1>
+        <h1>Adicione sua Tarefa</h1>
         <section>
-          <label htmlFor="task">Digite sua Tarefa</label>
+          <label htmlFor="task">Digite o titulo da Tarefa</label>
           <input
             className="titleTasks"
             type="text"
