@@ -1,15 +1,18 @@
+import { useContext } from 'react'
 import { BsTrash3Fill } from "react-icons/bs"
 import { BiEdit } from "react-icons/bi";
 import { DataProps } from "../../@types/TypeApi";
 import { Container } from "./style";
+import { TaskContext } from "../../context";
 
 type CardTask = {
     task: DataProps;
     modalOpen: (TaskID: number) => void;
-    deleteTasks: (id: number) => void;
 }
 
-export function CardTask({ task, modalOpen, deleteTasks }: CardTask) {
+export function CardTask({ task, modalOpen }: CardTask) {
+    const { deleteTasks } = useContext(TaskContext)
+
     return (
         <Container>
             <div className="cardTask">
