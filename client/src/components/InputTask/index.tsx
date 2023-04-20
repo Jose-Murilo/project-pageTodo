@@ -7,34 +7,38 @@ import { API } from '../../services/api';
 type InputTaskProps = {
     titleTask: string;
     descriptionTask: string;
-    taskData?: {
-        descriptionTask: string;
-        id: number;
-        titleTask: string;
-    }
+    deleteTasks: (taskID: number) => void
 }
 interface TaskDataForm {
+    created_at: string;
     id: number;
-    title: string;
-    description: string;
+    titleTask: string
+    descriptionTask: string;
+    updated_at: string
 }
 
-export function InputTask({ titleTask, descriptionTask }: InputTaskProps) {
-    const { register, handleSubmit, formState: { errors }, reset } = useForm()
-    const { taskData, closeModal } = useContext(TaskContext)
+export function InputTask({ titleTask, descriptionTask, deleteTasks }: InputTaskProps) {
+    const { register, handleSubmit } = useForm()
+    const { taskData, closeModal, fetchTasks } = useContext(TaskContext)
 
     const [taskDataForm, setTaskDataForm] = useState<TaskDataForm>({
+        created_at: '',
         id: 0,
-        title: '',
-        description: ''
+        titleTask: '',
+        descriptionTask: '',
+        updated_at: ''
     });
 
+    const taskCreatedAt = new Date(taskDataForm.created_at).toLocaleString()
+    
     useEffect(() => {
         if (taskData) {
             setTaskDataForm({
+                created_at: taskData.created_at,
                 id: taskData.id,
-                title: taskData.titleTask,
-                description: taskData.descriptionTask
+                titleTask: taskData.titleTask,
+                descriptionTask: taskData.descriptionTask,
+                updated_at: taskData.updated_at
             });
         }
     }, [taskData]);
@@ -45,10 +49,12 @@ export function InputTask({ titleTask, descriptionTask }: InputTaskProps) {
 
     async function updateTasks() {
         API.put(`/${taskData.id}`, taskDataForm)
-            .then(res => console.log(res.data))
+            .then(() => {
+                fetchTasks()
+            })
             .catch(error => alert(error.response.data))
-            closeModal()
-        console.log(taskDataForm);
+        alert('Task updated successfully')
+        closeModal()
     }
 
     function handleInputsChange(event: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) {
@@ -61,36 +67,47 @@ export function InputTask({ titleTask, descriptionTask }: InputTaskProps) {
 
     return (
         <Container>
-            <form onSubmit={handleSubmit(onSubmit)}>
+            <form className='formModal' onSubmit={handleSubmit(onSubmit)}>
+                <p>id: {taskDataForm.id}</p>
                 <section>
                     <label htmlFor="task">{titleTask}</label>
                     <input
                         className="titleTasks"
                         type="text"
-                        {...register('title', { required: true })}
-                        value={taskDataForm.title}
+                        {...register('titleTask')}
+                        value={taskDataForm.titleTask}
                         onChange={handleInputsChange}
                         placeholder="Digite sua tarefa"
                         id="task"
                     />
                 </section>
+
                 <section>
                     <label htmlFor="">{descriptionTask}</label>
                     <textarea
                         className="taskDescription"
                         maxLength={350}
-                        {...register('description', { required: true })}
+                        {...register('descriptionTask')}
                         id=""
                         cols={30}
                         rows={10}
-                        value={taskDataForm.description}
+                        value={taskDataForm.descriptionTask}
                         onChange={handleInputsChange}
                         placeholder="Digite a descrição da Tarefa"
                     >
                     </textarea>
                 </section>
-                <button>Alterar</button>
+
+                <button className='updateButton'>Alterar</button>
+                <button onClick={() => {
+                    closeModal();
+                    deleteTasks(taskData.id)
+                }} className='deleteButton'>Deletar</button>
             </form>
+
+            <div>
+                Tarefa Criada: {taskCreatedAt}
+            </div>
         </Container>
     )
 }

@@ -1,6 +1,12 @@
 import styled from "styled-components";
 
 export const Container = styled.div`
+    .formModal {
+        display: flex;
+        flex-direction: column;
+        gap: 2rem;
+    }
+
     .titleTasks {
         width: 100%;
         margin-top: 1rem;
@@ -44,7 +50,41 @@ export const Container = styled.div`
 
     .buttonTasks:hover {
         background: ${(({ theme }) => theme["--green-300"])};
-        /* opacity: .8; */
+    }
+
+    .updateButton {
+        position: absolute;
+        width: 7rem;
+        bottom: 1rem;
+
+        padding: 1rem;
+        background: ${props => props.theme["--green-500"]};
+        color: white;
+        border: 0;
+        border-radius: 1rem;
+        cursor: pointer;
+    }
+
+    .updateButton:hover {
+        background: ${props => props.theme["--green-300"]};
+    }
+    
+    .deleteButton {
+        position: absolute;
+        width: 7rem;
+        bottom: 1rem;
+        right: 2rem;
+        
+        padding: 1rem;
+        background: ${props => props.theme["--red-500"]};
+        color: white;
+        border: 0;
+        border-radius: 1rem;
+        cursor: pointer;
+    }
+
+    .deleteButton:hover {
+        opacity: .7;
     }
 `
 
