@@ -2,7 +2,7 @@
 
 import { useEffect, useContext } from 'react'
 import Empty from '../../assets/Empty.svg'
-import { Container, EmptyText } from "./style";
+import { Container, ContainerTask, EmptyText } from "./style";
 import { API } from "../../services/api";
 import { useState } from "react";
 import { TaskContext } from '../../context';
@@ -15,29 +15,40 @@ export interface DataProps {
 }[]
 
 export function Tasks() {
-    const [data, setData] = useState<DataProps[]>([])
-    const { setTaskData, setShowModal } = useContext(TaskContext)
+    // const [data, setData] = useState<DataProps[]>([])
+    const { setTaskData, setShowModal, showModal, fetchTasks, task } = useContext(TaskContext)
+    const [searchTask, setSearchTask] = useState('')
 
-    async function getTasks() {
-        const response = await API.get('')
-        const data = response.data
-        setData(data)
-    }
+    const filterTask = task.filter(task => {
+        return (
+            task.titleTask.toLowerCase().includes(searchTask.toLowerCase())
+        )
+    })
+    console.log(filterTask);
+
+    // async function fetchTasks() {
+    //     const response = await API.get('')
+    //     const data = response.data
+    //     setData(data)
+    // }
 
     useEffect(() => {
-        getTasks()
+        fetchTasks()
     }, [])
 
     async function deleteTasks(id: number) {
-        const response = await API.delete(`/${id}`)
-        getTasks()
-        return response
+        const confirm = window.confirm('Tem certeza que deseja apagar essa tarefa?')
+        if (confirm) {
+            const response = await API.delete(`/${id}`)
+            fetchTasks()
+            return response
+        }
     }
 
     const modalOpen = (TaskID: number) => {
         setShowModal(true)
-        const taskIndex = data?.findIndex(task => task.id == TaskID);
-        return setTaskData(data[taskIndex]);
+        const taskIndex = task?.findIndex(task => task.id == TaskID);
+        return setTaskData(task[taskIndex]);
     };
 
     return (
@@ -45,10 +56,19 @@ export function Tasks() {
             <div className="containerCard">
                 <h1>Suas Tarefas</h1>
 
-                {data &&
+                <input 
+                    className='searchTask' 
+                    type="text" 
+                    placeholder='Pesquise sua tarefa' 
+                    name="" 
+                    value={searchTask}
+                    onChange={(event) => setSearchTask(event.target.value)}
+                />
+
+                {filterTask &&
                     <>
-                        <div className="containerTask">
-                            {data.map(task => {
+                        <ContainerTask showModal={showModal}>
+                            {task.map(task => {
                                 return (
                                     <>
                                         <CardTask 
@@ -60,14 +80,14 @@ export function Tasks() {
                                     </>
                                 )
                             })}
-                        </div>
+                        </ContainerTask>
 
-                        <Modal />
+                        <Modal deleteTasks={deleteTasks}/>
                     </>
                 }
 
                 {
-                    data?.length == 0 && (
+                    task?.length == 0 && (
                         <div className="containerEmpty">
                             <img src={Empty} alt="" />
                             <EmptyText className="emptyTasks">Você ainda não tem tarefas cadastradas</EmptyText>
