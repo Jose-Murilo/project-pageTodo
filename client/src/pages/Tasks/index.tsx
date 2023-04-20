@@ -10,11 +10,10 @@ import { Modal } from '../../components/Modal';
 import { CardTask } from '../../components/CardTask';
 
 export function Tasks() {
-    // const [data, setData] = useState<DataProps[]>([])
-    const { setTaskData, setShowModal, showModal, fetchTasks, task } = useContext(TaskContext)
+    const { setTaskData, setShowModal, showModal, fetchTasks, tasks } = useContext(TaskContext)
     const [searchTask, setSearchTask] = useState('')
 
-    const filterTask = task.filter(task => {
+    const filterTask = tasks.filter(task => {
         return (
             task.titleTask.toLowerCase().includes(searchTask.toLowerCase())
         )
@@ -25,19 +24,10 @@ export function Tasks() {
         fetchTasks()
     }, [])
 
-    async function deleteTasks(id: number) {
-        const confirm = window.confirm('Tem certeza que deseja apagar essa tarefa?')
-        if (confirm) {
-            const response = await API.delete(`/${id}`)
-            fetchTasks()
-            return response
-        }
-    }
-
     const modalOpen = (TaskID: number) => {
         setShowModal(true)
-        const taskIndex = task?.findIndex(task => task.id == TaskID);
-        return setTaskData(task[taskIndex]);
+        const taskIndex = tasks?.findIndex(task => task.id == TaskID);
+        return setTaskData(tasks[taskIndex]);
     };
 
     return (
@@ -57,26 +47,25 @@ export function Tasks() {
                 {filterTask &&
                     <>
                         <ContainerTask showModal={showModal}>
-                            {task.map(task => {
+                            {tasks.map(task => {
                                 return (
                                     <>
                                         <CardTask 
                                             key={task.id}
                                             task={task} 
                                             modalOpen={modalOpen} 
-                                            deleteTasks={deleteTasks}
                                         />
                                     </>
                                 )
                             })}
                         </ContainerTask>
 
-                        <Modal deleteTasks={deleteTasks}/>
+                        <Modal />
                     </>
                 }
 
                 {
-                    task?.length == 0 && (
+                    tasks?.length == 0 && (
                         <div className="containerEmpty">
                             <img src={Empty} alt="" />
                             <EmptyText className="emptyTasks">Você ainda não tem tarefas cadastradas</EmptyText>
