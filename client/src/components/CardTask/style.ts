@@ -16,6 +16,8 @@ export const Container = styled.div`
 
         .descriptions {
             color: white;
+            text-align: left;
+            padding-inline: 1.2rem;
             max-width: 27rem;
             word-wrap: break-word;
         }
@@ -36,29 +38,26 @@ export const Container = styled.div`
     }
 
     .viewMore {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        
         width: 100%;
         position: absolute;
         border-radius: .8rem;
         width: 100%;
-        display: flex;
         background: ${props => props.theme["--gray-700"]};
-        padding-inline: 1rem;
+        padding: 1rem;
         bottom: 0;
     }
 
     .buttonViewMore {
         background: ${props => props.theme["--gray-700"]};
-        border: 0;
-        color: white;
+        font-size: 1.6rem;
         cursor: pointer;
-        padding: 1rem;
-        border-radius: 1rem;
     }
 
     .trashTask {
-        position: absolute;
-        top: 1.2rem;
-        cursor: pointer;
-        right: .8rem;
+         cursor: pointer;
     }
 `

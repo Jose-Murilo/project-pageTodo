@@ -1,5 +1,7 @@
 import { BsTrash3Fill } from "react-icons/bs"
-import { DataProps } from "../../context";
+import { BiEdit } from "react-icons/bi";
+import { DataProps } from "../../@types/TypeApi";
+import { Container } from "./style";
 
 type CardTask = {
     task: DataProps;
@@ -9,7 +11,7 @@ type CardTask = {
 
 export function CardTask({ task, modalOpen, deleteTasks }: CardTask) {
     return (
-        <>
+        <Container>
             <div className="cardTask">
                 <div className="containerTitle">
                     <h2 key={task.id}>
@@ -21,16 +23,16 @@ export function CardTask({ task, modalOpen, deleteTasks }: CardTask) {
                 <p className="descriptions">{task.descriptionTask}</p>
 
                 <div className="viewMore">
-                    <button onClick={() => {
+                    <BiEdit onClick={() => {
                         modalOpen(task.id)
                     }
-                    } className="buttonViewMore">Ver +</button>
-                </div>
-
-                <BsTrash3Fill className="trashTask" onClick={() => {
+                    } className="buttonViewMore"/>
+                <BsTrash3Fill title="Alterar tarefa" className="trashTask" onClick={() => {
                     deleteTasks(task.id)
                 }} />
+                </div>
+
             </div>
-        </>
+        </Container>
     )
 }
