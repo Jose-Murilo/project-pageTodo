@@ -1,5 +1,6 @@
 import { createContext, useState } from 'react'
 import { API } from '../services/api';
+import { DataProps } from '../@types/TypeApi'
 
 type TaskData = {
     id: number;
@@ -23,11 +24,6 @@ export const TaskContext = createContext({} as ContextProps)
 type ContextProviderProps = {
     children: React.ReactElement
 }
-export interface DataProps {
-    id: number;
-    titleTask: string
-    descriptionTask: string;
-}[]
 
 export function ContextProvider({ children }: ContextProviderProps) {
     const [data, setData] = useState<DataProps[]>([])
