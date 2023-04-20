@@ -6,6 +6,7 @@ type ModalProps = {
 
 export const Container = styled.div<ModalProps>`
     display: ${props => props.modal ? 'flex' : 'none'};
+
     position: absolute;
     top: 0;
     left: 0;
@@ -13,11 +14,11 @@ export const Container = styled.div<ModalProps>`
     bottom: 0;
     width: 100%;
     height: 100vh;
-    
+
     .backdrop {
         background: rgba(0, 0, 0, .7);
         width: 100%;
-        height: 100%;
+        max-height: 100%;
         z-index: 1;
         position: absolute;
         top: 0;
@@ -29,6 +30,7 @@ export const Container = styled.div<ModalProps>`
     
     .modal-content {
         display: flex;
+        position: relative;
         flex-direction: column;
         background: ${props => props.theme["--gray-800"]};
         z-index: 2;
@@ -37,5 +39,18 @@ export const Container = styled.div<ModalProps>`
         max-width: 700px;
         height: 500px;
         border-radius: 20px;
+    }
+
+    .closeModal {
+        position: absolute;
+        top: 1rem;
+        font-size: 2rem;
+        cursor: pointer;
+        right: 1.7rem;
+        transition: transform 300ms;
+    }
+
+    .closeModal:hover {
+        transform: scale(1.1);
     }
 `
