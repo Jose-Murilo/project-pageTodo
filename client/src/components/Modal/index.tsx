@@ -3,13 +3,9 @@ import { TaskContext } from '../../context'
 import { InputTask } from '../InputTask'
 import { Container } from './style'
 
-type ModalProps = {
-    deleteTasks: (taskID: number) => void
-}
+export function Modal() {
 
-export function Modal({deleteTasks}: ModalProps) {
-
-    const { setShowModal, showModal, task } = useContext(TaskContext)
+    const { setShowModal, showModal, deleteTasks } = useContext(TaskContext)
 
     return (
         <Container modal={showModal}>
