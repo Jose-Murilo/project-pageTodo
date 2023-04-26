@@ -4,7 +4,7 @@ import { DataProps } from '../@types/TypeApi'
 
 type TaskData = DataProps
 
-type ContextProps = {
+type TaskContextProps = {
     taskData: TaskData;
     setTaskData: React.Dispatch<React.SetStateAction<TaskData>>;
     tasks: DataProps[];
@@ -16,13 +16,13 @@ type ContextProps = {
     deleteTasks: (taskID: number) => void;
 };
 
-export const TaskContext = createContext({} as ContextProps)
+export const TaskContext = createContext({} as TaskContextProps)
 
 type ContextProviderProps = {
     children: React.ReactElement
 }
 
-export function ContextProvider({ children }: ContextProviderProps) {
+export function TaskProvider({ children }: ContextProviderProps) {
     // States
     const [tasks, setTasks] = useState<DataProps[]>([])
     const [taskData, setTaskData] = useState<TaskData>({
