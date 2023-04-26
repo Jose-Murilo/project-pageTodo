@@ -1,11 +1,11 @@
-import { ThemeProvider } from 'styled-components'
-import { defaultTheme } from '../styles/themes/default'
-import { GlobalStyle } from '../styles/resetGlobal'
-import { Router } from '../routes'
-import { BrowserRouter } from 'react-router-dom'
+import { TaskProvider } from '../context'
 import { QueryClientProvider } from '@tanstack/react-query'
 import { queryClient } from '../services/QueryClient'
-import { TaskProvider } from '../context'
+import { ThemeProvider } from 'styled-components'
+import { defaultTheme } from '../styles/themes/default'
+import { BrowserRouter } from 'react-router-dom'
+import { Router } from '../routes'
+import { GlobalStyle } from '../styles/resetGlobal'
 
 export function App() {
   return (
