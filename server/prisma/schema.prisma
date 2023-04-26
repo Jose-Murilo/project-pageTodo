@@ -11,6 +11,7 @@ model task {
   id              Int      @id @default(autoincrement()) @db.UnsignedSmallInt
   titleTask       String   @db.VarChar(255)
   descriptionTask String   @db.VarChar(255)
+  isCompleted     Boolean  @default(false)
   created_at      DateTime @default(now()) @db.DateTime(0)
-  updated_at      DateTime @default(now()) @db.DateTime(0) @updatedAt
+  updated_at      DateTime @default(now()) @updatedAt @db.DateTime(0)
 }
