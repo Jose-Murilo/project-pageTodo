@@ -66,9 +66,6 @@ const controllers = {
             try {
                 const { id } = req.params;
     
-                const task = await prisma.task.findUnique({where: {id: Number(id)}});
-                if (!task) return res.status(400).json('User Not Found!');
-    
                 const taskDelete = await prisma.task.delete({
                     where: {id: Number(id)}
                 });
