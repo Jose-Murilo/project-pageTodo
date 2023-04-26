@@ -28,13 +28,11 @@ export function CardTask({ task, modalOpen }: CardTask) {
                 <div className="viewMore">
                     <BiEdit onClick={() => {
                         modalOpen(task.id)
-                    }
-                    } className="buttonViewMore"/>
-                <BsTrash3Fill title="Alterar tarefa" className="trashTask" onClick={() => {
-                    deleteTasks(task.id)
-                }} />
+                    }} className="buttonViewMore" />
+                    <BsTrash3Fill title="Alterar tarefa" className="trashTask" onClick={() => {
+                        deleteTasks(task.id)
+                    }} />
                 </div>
-
             </div>
         </Container>
     )
