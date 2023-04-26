@@ -1,6 +1,6 @@
 import { useContext } from 'react'
 import { TaskContext } from '../../context'
-import { InputTask } from '../InputTask'
+import { FormModal } from '../FormModal'
 import { Container } from './style'
 
 export function Modal() {
@@ -14,7 +14,7 @@ export function Modal() {
                 <div onClick={() => setShowModal(false)} className='closeModal'>X</div>
                 <h1>Alterar Tarefas</h1>
 
-                <InputTask 
+                <FormModal 
                     titleTask="Alterar titulo da tarefa" descriptionTask="Alterar descrição da tarefa" 
                 />
             </div>

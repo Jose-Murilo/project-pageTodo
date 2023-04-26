@@ -18,7 +18,6 @@ export function Tasks() {
             task.titleTask.toLowerCase().includes(searchTask.toLowerCase())
         )
     })
-    console.log(filterTask);
 
     useEffect(() => {
         fetchTasks()
