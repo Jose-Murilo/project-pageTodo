@@ -16,20 +16,27 @@ export function Header() {
         <nav className='navHeader'>
           <ul>
             <li>
-              <NavLink className={(NavLink) => NavLink.isActive ? 'active' : '' } to="/">HOME</NavLink>
+              <NavLink className={(NavLink) => NavLink.isActive ? 'active' : ''} to="/">HOME</NavLink>
             </li>
             <li>
-              <NavLink className={(NavLink) => NavLink.isActive ? 'active' : '' } to="/tasks">TASKS</NavLink>
+              <NavLink className={(NavLink) => NavLink.isActive ? 'active' : ''} to="/tasks">TASKS</NavLink>
             </li>
             <li>
-              <NavLink className={(NavLink) => NavLink.isActive ? 'active' : '' } to="/about">ABOUT</NavLink>
+              <NavLink className={(NavLink) => NavLink.isActive ? 'active' : ''} to="/about">ABOUT</NavLink>
             </li>
           </ul>
         </nav>
 
+        <ImgToggle 
+          src={toggle ? menuClose : menuOpen} 
+          onClick={() => setToggle(prevState => !prevState)} 
+          alt="" 
+        />
 
-        <ImgToggle src={toggle ? menuClose : menuOpen} onClick={() => setToggle(prevState => !prevState)} alt="" />
-        <Menu isToggle={toggle} onSetToggle={setToggle} />
+        <Menu 
+          isToggle={toggle} 
+          onSetToggle={setToggle} 
+        />
       </div>
     </Container>
   );
