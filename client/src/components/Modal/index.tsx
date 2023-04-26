@@ -5,7 +5,7 @@ import { Container } from './style'
 
 export function Modal() {
 
-    const { setShowModal, showModal, deleteTasks } = useContext(TaskContext)
+    const { setShowModal, showModal } = useContext(TaskContext)
 
     return (
         <Container modal={showModal}>
@@ -14,7 +14,9 @@ export function Modal() {
                 <div onClick={() => setShowModal(false)} className='closeModal'>X</div>
                 <h1>Alterar Tarefas</h1>
 
-                <InputTask deleteTasks={deleteTasks} titleTask="Alterar titulo da tarefa" descriptionTask="Alterar descrição da tarefa" />
+                <InputTask 
+                    titleTask="Alterar titulo da tarefa" descriptionTask="Alterar descrição da tarefa" 
+                />
             </div>
         </Container>
     )
