@@ -14,7 +14,6 @@ app.use(cors());
 app.use(express.json())
 app.use(router);
 
-
 prisma.$connect()
     .then(() => console.log('Database is connected'))
     .catch((erro) => console.log(erro))
