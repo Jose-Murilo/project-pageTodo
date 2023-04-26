@@ -15,8 +15,8 @@ export function Tasks() {
 
     const filterTask = tasks.filter(task => {
         return (
-            task.titleTask.toLowerCase().includes(searchTask.toLowerCase()),
-            task.descriptionTask.toLowerCase().includes(searchTask.toLowerCase())
+            task.titleTask.toLowerCase().includes(searchTask.toLowerCase()) ||
+            task.descriptionTask.toLowerCase().includes(searchTask.toLowerCase()) 
         )
     })
 
