@@ -1,16 +1,17 @@
 // import { useQuery } from "@tanstack/react-query"
 
-import { useEffect, useContext } from 'react'
-import Empty from '../../assets/Empty.svg'
+import { useState, useEffect, useContext } from 'react'
 import { Container, ContainerTask, EmptyText } from "./style";
-import { useState } from "react";
+
 import { TaskContext } from '../../context';
 import { Modal } from '../../components/Modal';
 import { CardTask } from '../../components/CardTask';
+import Empty from '../../assets/Empty.svg'
 
 export function Tasks() {
     const [searchTask, setSearchTask] = useState('')
     const { setTaskData, setShowModal, showModal, fetchTasks, tasks } = useContext(TaskContext)
+    const noTask = tasks?.length === 0
 
     const filterTask = tasks.filter(task => {
         return (
@@ -34,8 +35,6 @@ export function Tasks() {
             <div className="containerCard">
                 <h1>Suas Tarefas</h1>
 
-                {
-                    tasks?.length !== 0 ?
                         <input
                             className='searchTask'
                             type="text"
@@ -43,14 +42,14 @@ export function Tasks() {
                             name=""
                             value={searchTask}
                             onChange={(event) => setSearchTask(event.target.value)}
-                        /> : ''
-                }
+                            disabled={noTask}
+                        /> 
 
 
                 {filterTask &&
                     <>
                         <ContainerTask showModal={showModal}>
-                            {tasks.map(task => {
+                            {filterTask.map(task => {
                                 return (
                                     <>
                                         <CardTask
@@ -68,7 +67,7 @@ export function Tasks() {
                 }
 
                 {
-                    tasks?.length == 0 && (
+                    noTask && (
                         <div className="containerEmpty">
                             <img src={Empty} alt="" />
                             <EmptyText className="emptyTasks">Você ainda não tem tarefas cadastradas</EmptyText>
