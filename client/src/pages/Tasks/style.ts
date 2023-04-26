@@ -27,6 +27,16 @@ export const Container = styled.div`
         background: ${props => props.theme["--gray-800"]};
         margin-bottom: 1rem;
     }
+
+    .searchTask:focus  {
+        border: 1px solid ${props => props.theme["--green-300"]};
+        outline: 1px solid ${props => props.theme["--green-300"]};
+    }
+
+    .searchTask:disabled {
+        opacity: .3;
+        border: 1px solid ${props => props.theme["--red-500"]};
+    }
     
     .containerEmpty {
         margin-top: 7rem;
