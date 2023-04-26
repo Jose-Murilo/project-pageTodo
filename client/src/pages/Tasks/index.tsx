@@ -3,15 +3,14 @@
 import { useEffect, useContext } from 'react'
 import Empty from '../../assets/Empty.svg'
 import { Container, ContainerTask, EmptyText } from "./style";
-import { API } from "../../services/api";
 import { useState } from "react";
 import { TaskContext } from '../../context';
 import { Modal } from '../../components/Modal';
 import { CardTask } from '../../components/CardTask';
 
 export function Tasks() {
-    const { setTaskData, setShowModal, showModal, fetchTasks, tasks } = useContext(TaskContext)
     const [searchTask, setSearchTask] = useState('')
+    const { setTaskData, setShowModal, showModal, fetchTasks, tasks } = useContext(TaskContext)
 
     const filterTask = tasks.filter(task => {
         return (
@@ -35,14 +34,18 @@ export function Tasks() {
             <div className="containerCard">
                 <h1>Suas Tarefas</h1>
 
-                <input 
-                    className='searchTask' 
-                    type="text" 
-                    placeholder='Pesquise sua tarefa' 
-                    name="" 
-                    value={searchTask}
-                    onChange={(event) => setSearchTask(event.target.value)}
-                />
+                {
+                    tasks?.length !== 0 ?
+                        <input
+                            className='searchTask'
+                            type="text"
+                            placeholder='Pesquise sua tarefa'
+                            name=""
+                            value={searchTask}
+                            onChange={(event) => setSearchTask(event.target.value)}
+                        /> : ''
+                }
+
 
                 {filterTask &&
                     <>
@@ -50,10 +53,10 @@ export function Tasks() {
                             {tasks.map(task => {
                                 return (
                                     <>
-                                        <CardTask 
+                                        <CardTask
                                             key={task.id}
-                                            task={task} 
-                                            modalOpen={modalOpen} 
+                                            task={task}
+                                            modalOpen={modalOpen}
                                         />
                                     </>
                                 )
