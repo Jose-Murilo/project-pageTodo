@@ -35,15 +35,15 @@ export function Tasks() {
             <div className="containerCard">
                 <h1>Suas Tarefas</h1>
 
-                        <input
-                            className='searchTask'
-                            type="text"
-                            placeholder='Pesquise sua tarefa'
-                            name=""
-                            value={searchTask}
-                            onChange={(event) => setSearchTask(event.target.value)}
-                            disabled={noTask}
-                        /> 
+                <input
+                    className='searchTask'
+                    type="text"
+                    placeholder='Pesquise sua tarefa'
+                    name=""
+                    value={searchTask}
+                    onChange={(event) => setSearchTask(event.target.value)}
+                    disabled={noTask}
+                />
 
 
                 {filterTask &&
