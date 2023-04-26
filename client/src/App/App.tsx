@@ -5,11 +5,11 @@ import { Router } from '../routes'
 import { BrowserRouter } from 'react-router-dom'
 import { QueryClientProvider } from '@tanstack/react-query'
 import { queryClient } from '../services/QueryClient'
-import { ContextProvider } from '../context'
+import { TaskProvider } from '../context'
 
 export function App() {
   return (
-    <ContextProvider>
+    <TaskProvider>
       <QueryClientProvider client={queryClient}>
         <ThemeProvider theme={defaultTheme}>
           <BrowserRouter>
@@ -18,7 +18,7 @@ export function App() {
           <GlobalStyle />
         </ThemeProvider>
       </QueryClientProvider>
-    </ContextProvider>
+    </TaskProvider>
   )
 }
 
