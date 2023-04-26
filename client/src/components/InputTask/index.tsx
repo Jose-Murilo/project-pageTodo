@@ -8,14 +8,13 @@ import { DataProps } from '../../@types/TypeApi';
 type InputTaskProps = {
     titleTask: string;
     descriptionTask: string;
-    deleteTasks: (taskID: number) => void
 }
 
-interface TaskDataForm extends DataProps {}
+interface TaskDataForm extends DataProps { }
 
-export function InputTask({ titleTask, descriptionTask, deleteTasks }: InputTaskProps) {
+export function InputTask({ titleTask, descriptionTask }: InputTaskProps) {
     const { register, handleSubmit } = useForm()
-    const { taskData, closeModal, fetchTasks } = useContext(TaskContext)
+    const { taskData, closeModal, fetchTasks, deleteTasks } = useContext(TaskContext)
     const [taskDataForm, setTaskDataForm] = useState<TaskDataForm>({
         created_at: '',
         id: 0,
@@ -25,7 +24,7 @@ export function InputTask({ titleTask, descriptionTask, deleteTasks }: InputTask
     });
 
     const taskCreatedDate = new Date(taskDataForm.created_at).toLocaleString()
-    
+
     useEffect(() => {
         if (taskData) {
             setTaskDataForm({
@@ -43,13 +42,26 @@ export function InputTask({ titleTask, descriptionTask, deleteTasks }: InputTask
     }
 
     async function updateTasks() {
-        API.put(`/${taskData.id}`, taskDataForm)
-            .then(() => {
-                fetchTasks()
-            })
-            .catch(error => alert(error.response.data))
-        alert('Task updated successfully')
-        closeModal()
+        try {
+            const response = await API.put(`/${taskData.id}`, taskDataForm)
+            const data = await response.data
+            if (data) {
+                if (taskDataForm.titleTask === taskData.titleTask && taskDataForm.descriptionTask === taskData.descriptionTask) {
+                    alert('Você não modificou nada!')
+                    const confirm = window.confirm('Deseja modificar alguma coisa?')
+                    
+                    if (!confirm) return closeModal()
+                } else {
+                    closeModal()
+                    alert('Task updated successfully')
+                }
+
+                return fetchTasks()
+            } 
+            
+        } catch (error: any) {
+            alert(error.response.data)
+        }
     }
 
     function handleInputsChange(event: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) {
