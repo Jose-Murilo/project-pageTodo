@@ -1,9 +1,11 @@
+import { Container } from "./style";
+
 export function About() {
     return (
-        <div>
+        <Container>
             <h1>Sobre</h1>
             <p>
-                Projeto desenvolvido com fins de aprendizado e evolução. Nesse projeto conseguimos aplicar bastante sobre nosso conhecimento técnico e visar alguns conceitos sobre React & NodeJs, com a ultilização de bibliotecas no front-end e no back-end.
+                Project developed with the objective of learning and evolution. In this project we were able to apply much of our technical knowledge and direct some concepts about React & NodeJs, with the use of libraries in the front-end and back-end.
             </p>
 
             <h2>Front-End</h2>
@@ -28,7 +30,7 @@ export function About() {
                 <li>Nodemon</li>
             </ul>
 
-            <p>Sistema desenvolvido by @Murilo & @Italo & @Jill</p>
-        </div>
+            <p>System developed by <a target="_blank" href="https://www.linkedin.com/in/jos%C3%A9-murilo/">@Murilo</a> & <a target="_blank" href="https://www.linkedin.com/in/italo-morais/">@Italo</a></p>
+        </Container>
     )
 }
