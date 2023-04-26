@@ -25,6 +25,7 @@ export const Container = styled.div`
     .taskDescription {
         width: 100%;
         margin-top: 1rem;
+        font-family: 'Inter';
         resize: none;
         color: ${(props) => props.theme["--white"]};
         background: ${(props) => props.theme["--gray-700"]};
