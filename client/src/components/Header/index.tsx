@@ -28,7 +28,7 @@ export function Header() {
         </nav>
 
 
-        <ImgToggle src={toggle ? menuClose : menuOpen} onClick={() => setToggle(prev => !prev)} alt="" />
+        <ImgToggle src={toggle ? menuClose : menuOpen} onClick={() => setToggle(prevState => !prevState)} alt="" />
         <Menu isToggle={toggle} onSetToggle={setToggle} />
       </div>
     </Container>
