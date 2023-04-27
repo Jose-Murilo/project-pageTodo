@@ -1,76 +1,15 @@
-import { useState, useContext, ChangeEvent, useEffect } from 'react';
 import { Container } from "./style";
 import { useForm } from 'react-hook-form';
-import { TaskContext } from '../../context';
-import { API } from '../../services/api';
-import { DataProps } from '../../@types/TypeApi';
+import { useFormModalTask } from '../../hooks/useFormModalTask';
 
 type InputTaskProps = {
     titleTask: string;
     descriptionTask: string;
 }
 
-interface TaskDataForm extends DataProps { }
-
 export function FormModal({ titleTask, descriptionTask }: InputTaskProps) {
     const { register, handleSubmit } = useForm()
-    const { taskData, closeModal, fetchTasks, deleteTasks } = useContext(TaskContext)
-    const [taskDataForm, setTaskDataForm] = useState<TaskDataForm>({
-        created_at: '',
-        id: 0,
-        titleTask: '',
-        descriptionTask: '',
-        updated_at: ''
-    });
-
-    const taskCreatedDate = new Date(taskDataForm.created_at).toLocaleString()
-
-    useEffect(() => {
-        if (taskData) {
-            setTaskDataForm({
-                created_at: taskData.created_at,
-                id: taskData.id,
-                titleTask: taskData.titleTask,
-                descriptionTask: taskData.descriptionTask,
-                updated_at: taskData.updated_at
-            });
-        }
-    }, [taskData]);
-
-    function onSubmit() {
-        updateTasks();
-    }
-
-    async function updateTasks() {
-        try {
-            const response = await API.put(`/${taskData.id}`, taskDataForm)
-            const data = await response.data
-            if (data) {
-                if (taskDataForm.titleTask === taskData.titleTask && taskDataForm.descriptionTask === taskData.descriptionTask) {
-                    alert('Você não modificou nada!')
-                    const confirm = window.confirm('Deseja modificar alguma coisa?')
-                    
-                    if (!confirm) return closeModal()
-                } else {
-                    closeModal()
-                    alert('Task updated successfully')
-                }
-
-                return fetchTasks()
-            } 
-            
-        } catch (error: any) {
-            alert(error.response.data)
-        }
-    }
-
-    function handleInputsChange(event: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) {
-        const { name, value } = event.target;
-        setTaskDataForm({
-            ...taskDataForm,
-            [name]: value
-        })
-    }
+    const { closeModal, deleteTasks, handleInputsChange, onSubmit, taskCreatedDate, taskData, taskDataForm } = useFormModalTask()
 
     return (
         <Container>
@@ -111,6 +50,8 @@ export function FormModal({ titleTask, descriptionTask }: InputTaskProps) {
                     deleteTasks(taskData.id)
                 }} className='deleteButton'>Deletar</button>
             </form>
+
+            <button onClick={() => taskDataForm.isCompleted = !taskDataForm.isCompleted}>Concluido</button>
 
             <div>
                 Tarefa Criada: {taskCreatedDate}
