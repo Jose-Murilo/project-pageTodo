@@ -29,6 +29,7 @@ export function TaskProvider({ children }: ContextProviderProps) {
         created_at: '',
         id: 0,
         titleTask: '',
+        isCompleted: false,
         descriptionTask: '',
         updated_at: ''
     });
