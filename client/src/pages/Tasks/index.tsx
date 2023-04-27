@@ -12,13 +12,15 @@ export function Tasks() {
     const [searchTask, setSearchTask] = useState('')
     const { setTaskData, setShowModal, showModal, fetchTasks, tasks } = useContext(TaskContext)
     const noTask = tasks?.length === 0
-
+    
     const filterTask = tasks.filter(task => {
         return (
             task.titleTask.toLowerCase().includes(searchTask.toLowerCase()) ||
             task.descriptionTask.toLowerCase().includes(searchTask.toLowerCase()) 
-        )
-    })
+            )
+        })
+
+    const noTaskFound = searchTask && filterTask.length === 0
 
     useEffect(() => {
         fetchTasks()
@@ -45,8 +47,7 @@ export function Tasks() {
                     disabled={noTask}
                 />
 
-
-                {filterTask &&
+                {tasks &&filterTask &&
                     <>
                         <ContainerTask showModal={showModal}>
                             {filterTask.map(task => {
@@ -66,6 +67,8 @@ export function Tasks() {
                     </>
                 }
 
+                {noTaskFound ? 'Tarefa não encontrada!' : null}
+                
                 {
                     noTask && (
                         <div className="containerEmpty">
