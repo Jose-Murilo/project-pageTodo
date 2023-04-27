@@ -41,7 +41,7 @@ const controllers = {
       }
 
       const TaskCreate = await prisma.task.create({
-        data: { titleTask, descriptionTask: descriptionTask as string },
+        data: { titleTask: titleTask as string, descriptionTask: descriptionTask as string, isCompleted: false },
       });
 
       return res.status(201).json({ message: 'Task created successfully' });
