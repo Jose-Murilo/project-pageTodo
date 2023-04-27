@@ -1,36 +1,21 @@
-// import { useQuery } from "@tanstack/react-query"
-
-import { useState, useEffect, useContext } from 'react'
 import { Container, ContainerTask, EmptyText } from "./style";
+import { useTask } from '../../hooks/useTask';
 
-import { TaskContext } from '../../context';
 import { Modal } from '../../components/Modal';
 import { CardTask } from '../../components/CardTask';
 import Empty from '../../assets/Empty.svg'
 
 export function Tasks() {
-    const [searchTask, setSearchTask] = useState('')
-    const { setTaskData, setShowModal, showModal, fetchTasks, tasks } = useContext(TaskContext)
-    const noTask = tasks?.length === 0
-    
-    const filterTask = tasks.filter(task => {
-        return (
-            task.titleTask.toLowerCase().includes(searchTask.toLowerCase()) ||
-            task.descriptionTask.toLowerCase().includes(searchTask.toLowerCase()) 
-            )
-        })
-
-    const noTaskFound = searchTask && filterTask.length === 0
-
-    useEffect(() => {
-        fetchTasks()
-    }, [])
-
-    const modalOpen = (TaskID: number) => {
-        setShowModal(true)
-        const taskIndex = tasks?.findIndex(task => task.id == TaskID);
-        return setTaskData(tasks[taskIndex]);
-    };
+    const {
+        searchTask,
+        setSearchTask,
+        showModal,
+        tasks,
+        noTask,
+        filterTask,
+        noTaskFound,
+        modalOpen
+    } = useTask()
 
     return (
         <Container>
@@ -47,7 +32,7 @@ export function Tasks() {
                     disabled={noTask}
                 />
 
-                {tasks &&filterTask &&
+                {tasks && filterTask &&
                     <>
                         <ContainerTask showModal={showModal}>
                             {filterTask.map(task => {
@@ -68,7 +53,7 @@ export function Tasks() {
                 }
 
                 {noTaskFound ? 'Tarefa não encontrada!' : null}
-                
+
                 {
                     noTask && (
                         <div className="containerEmpty">
