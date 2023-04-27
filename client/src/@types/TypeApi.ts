@@ -3,5 +3,6 @@ export interface DataProps {
     id: number;
     titleTask: string
     descriptionTask: string;
+    isCompleted: boolean;
     updated_at: string
 }[]
