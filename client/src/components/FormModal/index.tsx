@@ -9,7 +9,7 @@ type InputTaskProps = {
 
 export function FormModal({ titleTask, descriptionTask }: InputTaskProps) {
     const { register, handleSubmit } = useForm()
-    const { closeModal, deleteTasks, handleInputsChange, onSubmit, taskCreatedDate, taskData, taskDataForm, toggleIsCompleted,isCompletedForm } = useFormModalTask()
+    const { closeModal, deleteTasks, handleInputsChange, onSubmit, taskCreatedDate, taskData, taskDataForm, isCompletedLocal, handleCompleted } = useFormModalTask()
 
     return (
         <Container>
@@ -51,7 +51,7 @@ export function FormModal({ titleTask, descriptionTask }: InputTaskProps) {
                 }} className='deleteButton'>Deletar</button>
             </form>
 
-            <button onClick={toggleIsCompleted}>{isCompletedForm ? 'Não concluida': 'concluida'}</button>
+            <button onClick={handleCompleted}>{isCompletedLocal ? 'Concluida': 'Não concluida'}</button>
 
             <div>
                 Tarefa Criada: {taskCreatedDate}
