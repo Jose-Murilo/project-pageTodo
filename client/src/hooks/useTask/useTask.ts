@@ -1,4 +1,4 @@
-import { useState, useContext, useEffect } from "react"
+import { useState, useContext, useEffect, useCallback, useMemo } from "react"
 import { TaskContext } from "../../context"
 
 export function useTask() {
@@ -19,11 +19,17 @@ export function useTask() {
         fetchTasks()
     }, [])
 
-    const modalOpen = (TaskID: number) => {
+    const modalOpen = useCallback((TaskID: number) => {
         setShowModal(true)
-        const taskIndex = tasks?.findIndex(task => task.id == TaskID);
+        const taskIndex = tasks?.findIndex(task => task.id === TaskID);
         return setTaskData(tasks[taskIndex]);
-    };
+    }, [tasks, showModal])
+
+    // const modalOpen = (TaskID: number) => {
+    //     setShowModal(true)
+    //     const taskIndex = tasks?.findIndex(task => task.id === TaskID);
+    //     return setTaskData(tasks[taskIndex]);
+    // };
 
     return {
         searchTask,
