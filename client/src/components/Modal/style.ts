@@ -18,14 +18,12 @@ export const Container = styled.div<ModalProps>`
     .backdrop {
         background: rgba(0, 0, 0, .7);
         width: 100%;
-        max-height: 100%;
         z-index: 1;
         position: absolute;
         top: 0;
         left: 0;
         right: 0;
         bottom: 0;
-        backdrop-filter: blur(6px);
     }
     
     .modal-content {
