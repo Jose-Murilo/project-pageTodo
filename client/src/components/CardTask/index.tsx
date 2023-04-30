@@ -13,13 +13,17 @@ type CardTask = {
 export function CardTask({ task, modalOpen }: CardTask) {
     const { deleteTasks } = useContext(TaskContext)
     
+    console.log(task);
+    
+    
     return (
         <Container>
             <div className="cardTask">
                 <div className="containerTitle">
-                    <h2 key={task.id}>
-                        {
-                            task.titleTask.length > 17 ? task.titleTask.substring(0, 17) + '...' : task.titleTask
+                    <h2 key={task.id} className={task.isCompleted ? 'taskCompleted' : 'taskSla'}>
+                        
+                        { task.isCompleted ? 'Está concluida' :
+                            task.titleTask.length > 17 ? task.titleTask.substring(0, 17) + '...' : task.titleTask 
                         }
                     </h2>
                 </div>
