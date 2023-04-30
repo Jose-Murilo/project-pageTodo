@@ -6,6 +6,7 @@ interface MenuProps {
 }
 
 export function Menu({ isToggle, onSetToggle }: MenuProps) {
+  
   function toggle() {
     onSetToggle(false)
   }
