@@ -33,7 +33,7 @@ export function TaskProvider({ children }: ContextProviderProps) {
         descriptionTask: '',
         updated_at: ''
     });
-    const [showModal, setShowModal] = useState(false)
+    const [showModal, setShowModal] = useState<boolean>(false)
 
     // functions
     const fetchTasks = async () => {
