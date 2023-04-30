@@ -7,6 +7,7 @@ interface TaskDataForm extends DataProps {}
 
 export function useFormModalTask() {
     const { taskData, closeModal, fetchTasks, deleteTasks } = useContext(TaskContext)
+    const [isCompletedForm, setIsCompletedForm] = useState(false);
     const [taskDataForm, setTaskDataForm] = useState<TaskDataForm>({
         created_at: '',
         id: 0,
@@ -28,6 +29,7 @@ export function useFormModalTask() {
                 descriptionTask: taskData.descriptionTask,
                 updated_at: taskData.updated_at
             });
+            setIsCompletedForm(taskData.isCompleted)
         }
     }, [taskData]);
 
@@ -37,7 +39,11 @@ export function useFormModalTask() {
 
     async function updateTasks() {
         try {
-            const response = await API.put(`/${taskData.id}`, taskDataForm)
+            // const response = await API.put(`/${taskData.id}`, taskDataForm)
+            const response = await API.put(`/${taskData.id}`, {
+                ...taskDataForm,
+                isCompleted: isCompletedForm,
+            });
             const data = await response.data
             if (data) {
                 if (taskDataForm.titleTask === taskData.titleTask && taskDataForm.descriptionTask === taskData.descriptionTask) {
@@ -66,6 +72,10 @@ export function useFormModalTask() {
         })
     }
 
+    function toggleIsCompleted() {
+        setIsCompletedForm(!isCompletedForm)
+    }
+
     return {
         taskData,
         taskCreatedDate,
@@ -74,5 +84,7 @@ export function useFormModalTask() {
         handleInputsChange,
         closeModal,
         deleteTasks,
+        toggleIsCompleted,
+        isCompletedForm
     }
 }
