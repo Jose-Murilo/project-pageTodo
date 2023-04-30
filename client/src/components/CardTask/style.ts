@@ -60,4 +60,8 @@ export const Container = styled.div`
     .trashTask {
          cursor: pointer;
     }
+
+    .taskCompleted {
+        color: red;
+    }
 `
