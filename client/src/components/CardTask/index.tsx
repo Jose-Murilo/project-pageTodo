@@ -12,7 +12,7 @@ type CardTask = {
 
 export function CardTask({ task, modalOpen }: CardTask) {
     const { deleteTasks } = useContext(TaskContext)
-
+    
     return (
         <Container>
             <div className="cardTask">
