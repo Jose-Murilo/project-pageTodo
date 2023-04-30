@@ -10,7 +10,7 @@ export const Container = styled.div`
         border-radius: 1rem;
 
         h2 {
-            color: white;
+            /* color: white; */
             font-size: 1.9rem;
         }
 
