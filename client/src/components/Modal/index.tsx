@@ -1,23 +1,32 @@
-import { useContext } from 'react'
+import { useContext, memo, useCallback } from 'react'
 import { TaskContext } from '../../context'
 import { FormModal } from '../FormModal'
 import { Container } from './style'
 
-export function Modal() {
-
+function ModalApp() {
     const { setShowModal, showModal } = useContext(TaskContext)
+
+    const handleCloseModal = useCallback(() => {
+        setShowModal(false)
+    }, [setShowModal])
 
     return (
         <Container modal={showModal}>
-            <div onClick={() => setShowModal(false)} className="backdrop"></div>
+            <div onClick={handleCloseModal} className="backdrop"></div>
             <div className="modal-content">
-                <div onClick={() => setShowModal(false)} className='closeModal'>X</div>
+                <div onClick={handleCloseModal} className='closeModal'>X</div>
                 <h1>Alterar Tarefas</h1>
 
-                <FormModal 
-                    titleTask="Alterar titulo da tarefa" descriptionTask="Alterar descrição da tarefa" 
+                {/* <FormModal
+                    titleTask="Alterar titulo da tarefa" descriptionTask="Alterar descrição da tarefa"
+                /> */}
+
+                <FormModal
+                    {...{ titleTask: "Alterar titulo da tarefa", descriptionTask: "Alterar descrição da tarefa" }}
                 />
             </div>
         </Container>
     )
 }
+
+export const Modal = memo(ModalApp)
