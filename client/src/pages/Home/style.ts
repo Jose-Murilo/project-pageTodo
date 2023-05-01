@@ -4,7 +4,6 @@ export const Container = styled.div`
     display: flex;
     justify-content: center;
     background: ${(props) => props.theme["--gray-900"]};
-    height: 100vh;
 
     form {
         display: flex;
