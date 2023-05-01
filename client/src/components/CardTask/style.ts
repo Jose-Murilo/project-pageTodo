@@ -72,6 +72,7 @@ export const Container = styled.div`
     .taskCompletedDescription {
         text-align: left;
         max-width: 27rem;
+        word-wrap: break-word;
         max-height: 20rem;
         overflow-y: auto;
         padding-inline: 1.2rem;
