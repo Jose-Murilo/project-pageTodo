@@ -1,4 +1,4 @@
-import { Container } from "./style";
+import { Container, ContainerCompleted } from "./style";
 import { useForm } from 'react-hook-form';
 import { useFormModalTask } from '../../hooks/useFormModalTask';
 
@@ -60,12 +60,15 @@ export function FormModal({ titleTask, descriptionTask }: FormModalProps) {
                     deleteTasks(taskData.id)
                 }} className='deleteButton'>Deletar</button>
             </form>
+            
+            <ContainerCompleted isCompleted={isCompletedLocal}>
+                <p>Está tarefa está: </p>
+                <button onClick={handleCompleted}>
+                    {isCompletedLocal ? 'Concluida': 'Não concluida'}
+                </button>
+            </ContainerCompleted>
 
-            <button onClick={handleCompleted}>{isCompletedLocal ? 'Concluida': 'Não concluida'}</button>
-
-            <div>
-                Tarefa Criada: {taskCreatedDate}
-            </div>
+            <p className="taskCreated">Tarefa Criada: {taskCreatedDate}</p>
         </Container>
     )
 }
