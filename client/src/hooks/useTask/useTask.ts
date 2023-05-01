@@ -25,12 +25,6 @@ export function useTask() {
         return setTaskData(tasks[taskIndex]);
     }, [tasks, showModal])
 
-    // const modalOpen = (TaskID: number) => {
-    //     setShowModal(true)
-    //     const taskIndex = tasks?.findIndex(task => task.id === TaskID);
-    //     return setTaskData(tasks[taskIndex]);
-    // };
-
     return {
         searchTask,
         setSearchTask,
