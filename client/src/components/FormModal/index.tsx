@@ -64,7 +64,7 @@ export function FormModal({ titleTask, descriptionTask }: FormModalProps) {
             <ContainerCompleted isCompleted={isCompletedLocal}>
                 <p>Está tarefa está: </p>
                 <button onClick={handleCompleted}>
-                    {isCompletedLocal ? 'Concluida': 'Não concluida'}
+                    {isCompletedLocal ? 'Concluído': 'Não concluida'}
                 </button>
             </ContainerCompleted>
 
