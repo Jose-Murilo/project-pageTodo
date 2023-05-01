@@ -4,7 +4,7 @@ export const Container = styled.div`
     .formModal {
         display: flex;
         flex-direction: column;
-        gap: 2rem;
+        gap: 1rem;
     }
 
     .titleTasks {
@@ -87,5 +87,39 @@ export const Container = styled.div`
     .deleteButton:hover {
         opacity: .7;
     }
+
+    .containerCompleted {
+        display: flex;
+        gap: 1rem;
+        padding-block: 1rem;
+    }
+
+    .taskCreated {
+        font-size: 1.4rem;
+        text-align: left;
+    }
 `
 
+type ContainerCompletedProps = {
+    isCompleted: boolean;
+}
+
+export const ContainerCompleted = styled.div<ContainerCompletedProps>`
+    display: flex;
+    gap: 2rem;
+    padding-block: .8rem;
+    align-items: center;
+
+    button {
+        /* width: 7rem; */
+        text-align: center;
+        bottom: 1rem;
+        padding: 1rem;
+        color: ${props => props.isCompleted ? props => props.theme["--green-isCompleted"] : props => props.theme["--red-500"]};
+        background: ${props => props.theme["--gray-600"]};
+        /* color: white; */
+        border: 0px;
+        border-radius: 1rem;
+        cursor: pointer;
+    }
+`
