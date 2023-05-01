@@ -26,7 +26,8 @@ export function CardTask({ task, modalOpen }: CardTask) {
                         }
                     </h2>
                 </div>
-                <p className={task.isCompleted ? "taskCompleted" : "descriptions"}>{task.descriptionTask}</p>
+
+                <p className={task.isCompleted ? "taskCompleted taskCompletedDescription" : "descriptions"}>{task.descriptionTask}</p>
 
                 <div className="viewMore">
                     <BiEdit onClick={() => {
