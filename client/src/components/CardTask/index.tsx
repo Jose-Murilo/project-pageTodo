@@ -1,5 +1,5 @@
-import { useContext } from 'react'
-import { BsTrash3Fill } from "react-icons/bs"
+import { useContext, memo } from 'react';
+import { BsTrash3Fill } from "react-icons/bs";
 import { BiEdit } from "react-icons/bi";
 import { DataProps } from "../../@types/TypeApi";
 import { Container } from "./style";
@@ -10,12 +10,9 @@ type CardTask = {
     modalOpen: (TaskID: number) => void;
 }
 
-export function CardTask({ task, modalOpen }: CardTask) {
+function CardTask({ task, modalOpen }: CardTask) {
     const { deleteTasks } = useContext(TaskContext)
-
-    console.log(task);
-
-
+    
     return (
         <Container>
             <div className="cardTask">
@@ -44,3 +41,6 @@ export function CardTask({ task, modalOpen }: CardTask) {
         </Container>
     )
 }
+
+// evitar muita renderização no Card
+export default memo(CardTask);
