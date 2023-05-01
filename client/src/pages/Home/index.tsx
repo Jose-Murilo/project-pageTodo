@@ -2,10 +2,15 @@ import { Container } from "./style";
 import { useForm } from "react-hook-form";
 import { API } from "../../services/api";
 
-export function Home() {
-  const { register, handleSubmit, formState: { errors }, reset } = useForm()
+type FormDataType = {
+  titleTask: string;
+  descriptionTask: string;
+}
 
-  function onSubmit(data: any) {
+export function Home() {
+  const { register, handleSubmit, formState: { errors }, reset } = useForm<FormDataType>()
+
+  function onSubmit(data: FormDataType) {
     async function sendTasks() {
       const response = await API.post('', data)
       return response.data 
