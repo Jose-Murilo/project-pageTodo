@@ -19,6 +19,7 @@ export function useFormModalTask() {
 
     const taskCreatedDate = new Date(taskDataForm.created_at).toLocaleString()
 
+    // Esse useEffect ele vai setar os dados dentro de setTaskDataForm assim que tiver taskData, pois os valores dentro de TaskDataForm iniciam vazios.
     useEffect(() => {
         if (taskData) {
             setTaskDataForm({
@@ -36,10 +37,12 @@ export function useFormModalTask() {
         updateTasks();
     }
 
+    // para que o não precise clicar duas vezes no botão para ele inverter o valor dentro de isCompletedLocal, ou seja no primeiro click ele já irá inveter.
     useEffect(() => {
         setIsCompletedLocal(taskDataForm.isCompleted);
     }, [taskDataForm.isCompleted]);
 
+    // A função handleCompleted ela vai inverter o valor que já está na api e vai setar o valor dentro do estado, assim fazendo com que a tarefa fique concluído ou não.
     const handleCompleted = useCallback(() => {
         const newValue = !taskDataForm.isCompleted;
         taskDataForm.isCompleted = newValue;
@@ -54,7 +57,6 @@ export function useFormModalTask() {
                 setTasks((prevTasks) => prevTasks.map((task) =>
                     task.id === taskData.id ? { ...task, isCompleted: isCompletedLocal } : task
                 ));
-                closeModal();
                 if (
                     taskDataForm.titleTask === taskData.titleTask &&
                     taskDataForm.descriptionTask === taskData.descriptionTask
@@ -65,8 +67,6 @@ export function useFormModalTask() {
                     if (!confirm) {
                         setIsCompletedLocal(taskData.isCompleted);
                         return closeModal();
-                    } else {
-
                     }
                 } else {
                     closeModal();
@@ -79,54 +79,6 @@ export function useFormModalTask() {
             alert(error.response.error);
         }
     }
-
-
-    // useEffect(() => {
-    //     setIsCompletedLocal(taskDataForm.isCompleted);
-    // }, [taskDataForm.isCompleted]);
-
-    // const handleCompleted = useCallback(() => {
-    //     taskDataForm.isCompleted = !taskDataForm.isCompleted
-    //     setIsCompletedLocal(!taskDataForm.isCompleted)
-    // }, []);
-
-    // async function updateTasks() {
-    //     try {
-    //         // const response = await API.put(`/${taskData.id}`, taskDataForm)
-    //         const response = await API.put(`/${taskData.id}`,
-    //             { ...taskDataForm, isCompleted: isCompletedLocal }
-    //         );
-    //         const data = await response.data
-    //         if (data) {
-    //             setTasks((prevTasks) =>
-    //                 prevTasks.map((task) =>
-    //                     task.id === taskData.id ? { ...task, isCompleted: !isCompletedLocal } : task
-    //                 )
-    //             );
-
-    //             if (
-    //                 taskDataForm.titleTask === taskData.titleTask &&
-    //                 taskDataForm.descriptionTask === taskData.descriptionTask
-    //             ) {
-    //                 alert("Você não modificou nada!");
-    //                 const confirm = window.confirm("Deseja modificar alguma coisa?");
-
-    //                 if (!confirm) {
-    //                     setIsCompletedLocal(taskData.isCompleted);
-    //                     return closeModal();
-    //                 }
-    //             } else {
-    //                 closeModal();
-    //                 alert("Task updated successfully");
-    //             }
-
-    //             return fetchTasks();
-    //         }
-
-    //     } catch (error: any) {
-    //         alert(error.response.error)
-    //     }
-    // }
 
     function handleInputsChange(event: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) {
         const { name, value } = event.target;
