@@ -14,7 +14,7 @@ export const Container = styled.div`
     }
     
     h1 {
-        padding-block: 2rem;
+        padding-block: 1rem;
     }
 
     .searchTask {
