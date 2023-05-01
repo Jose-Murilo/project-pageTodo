@@ -18,7 +18,10 @@ export const Container = styled.div`
             color: white;
             text-align: left;
             padding-inline: 1.2rem;
+            padding-bottom: 2.5rem;
             max-width: 27rem;
+            max-height: 20rem;
+            overflow-y: auto;
             word-wrap: break-word;
         }
 
@@ -64,6 +67,15 @@ export const Container = styled.div`
     .taskCompleted {
         color: ${props => props.theme["--gray-400"]};
         text-decoration: line-through;
+    }
+
+    .taskCompletedDescription {
+        text-align: left;
+        max-width: 27rem;
+        max-height: 20rem;
+        overflow-y: auto;
+        padding-inline: 1.2rem;
+        padding-bottom: 2.5rem;
     }
 
     .textTaskIsCompleted {
