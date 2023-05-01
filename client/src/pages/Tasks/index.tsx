@@ -2,7 +2,7 @@ import { Container, ContainerTask, EmptyText } from "./style";
 import { useTask } from '../../hooks/useTask';
 
 import { Modal } from '../../components/Modal';
-import { CardTask } from '../../components/CardTask';
+import CardTask from '../../components/CardTask';
 import Empty from '../../assets/Empty.svg'
 
 export function Tasks() {
@@ -35,17 +35,13 @@ export function Tasks() {
                 {tasks && filterTask &&
                     <>
                         <ContainerTask showModal={showModal}>
-                            {filterTask.map(task => {
-                                return (
-                                    <>
-                                        <CardTask
-                                            key={task.id}
-                                            task={task}
-                                            modalOpen={modalOpen}
-                                        />
-                                    </>
-                                )
-                            })}
+                            {filterTask.map(task => (
+                                <CardTask
+                                    key={task.id}
+                                    task={task}
+                                    modalOpen={modalOpen}
+                                />
+                            ))}
                         </ContainerTask>
 
                         <Modal />
