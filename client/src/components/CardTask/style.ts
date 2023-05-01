@@ -62,6 +62,12 @@ export const Container = styled.div`
     }
 
     .taskCompleted {
-        color: red;
+        color: ${props => props.theme["--gray-400"]};
+        text-decoration: line-through;
+    }
+
+    .textTaskIsCompleted {
+        color: ${props => props.theme["--green-300"]};
+        font-size: 1.4rem;
     }
 `
