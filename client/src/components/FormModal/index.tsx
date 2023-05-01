@@ -2,14 +2,24 @@ import { Container } from "./style";
 import { useForm } from 'react-hook-form';
 import { useFormModalTask } from '../../hooks/useFormModalTask';
 
-type InputTaskProps = {
+type FormModalProps = {
     titleTask: string;
     descriptionTask: string;
 }
 
-export function FormModal({ titleTask, descriptionTask }: InputTaskProps) {
+export function FormModal({ titleTask, descriptionTask }: FormModalProps) {
     const { register, handleSubmit } = useForm()
-    const { closeModal, deleteTasks, handleInputsChange, onSubmit, taskCreatedDate, taskData, taskDataForm, isCompletedLocal, handleCompleted } = useFormModalTask()
+    const { 
+        closeModal, 
+        deleteTasks, 
+        handleInputsChange, 
+        onSubmit, 
+        taskCreatedDate, 
+        taskData, 
+        taskDataForm, 
+        isCompletedLocal, 
+        handleCompleted 
+    } = useFormModalTask()
 
     return (
         <Container>
