@@ -1,9 +1,9 @@
-import { useState, useContext, useEffect, useCallback, useMemo } from "react"
+import { useState, useContext, useEffect } from "react"
 import { TaskContext } from "../../context"
 
 export function useTask() {
     const [searchTask, setSearchTask] = useState<string>('')
-    const { setTaskData, setShowModal, showModal, fetchTasks, tasks } = useContext(TaskContext)
+    const { showModal, fetchTasks, tasks, modalOpen } = useContext(TaskContext)
     const noTask = tasks?.length === 0
 
     const filterTask = tasks.filter(task => {
@@ -18,12 +18,6 @@ export function useTask() {
     useEffect(() => {
         fetchTasks()
     }, [])
-
-    const modalOpen = useCallback((TaskID: number) => {
-        setShowModal(true)
-        const taskIndex = tasks?.findIndex(task => task.id === TaskID);
-        return setTaskData(tasks[taskIndex]);
-    }, [tasks, showModal])
 
     return {
         searchTask,
