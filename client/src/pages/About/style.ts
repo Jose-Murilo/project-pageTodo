@@ -11,10 +11,6 @@ export const Container = styled.div`
     color: white;
     overflow-y: auto;
 
-    h1 {
-        font-size: 4.2rem;
-    }
-
     p {
         max-width: 75.0rem;
         margin: 0 auto;
