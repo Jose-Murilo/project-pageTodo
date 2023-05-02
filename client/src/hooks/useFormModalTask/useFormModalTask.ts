@@ -77,7 +77,7 @@ export function useFormModalTask() {
 
             return fetchTasks();
         } catch (error: any) {
-            alert(error.response.error);
+            
         }
     }
 
