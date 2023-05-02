@@ -106,7 +106,7 @@ type ContainerCompletedProps = {
 
 export const ContainerCompleted = styled.div<ContainerCompletedProps>`
     display: flex;
-    gap: 2rem;
+    gap: 1rem;
     padding-block: .8rem;
     align-items: center;
 
