@@ -1,4 +1,4 @@
-import { createContext, useState } from 'react'
+import { createContext, useCallback, useState } from 'react'
 import { API } from '../services/api';
 import { DataProps } from '../@types/TypeApi'
 
@@ -14,6 +14,7 @@ type TaskContextProps = {
     closeModal: () => void;
     fetchTasks: () => Promise<void>;
     deleteTasks: (taskID: number) => void;
+    modalOpen: (taskID: number) => void;
 };
 
 export const TaskContext = createContext({} as TaskContextProps)
@@ -42,7 +43,13 @@ export function TaskProvider({ children }: ContextProviderProps) {
         setTasks(newData);
     };
 
-    const closeModal = () => setShowModal(false)
+    const closeModal = () => setShowModal(false);
+
+    const modalOpen = useCallback((TaskID: number) => {
+        setShowModal(true)
+        const taskIndex = tasks?.findIndex(task => task.id === TaskID);
+        return setTaskData(tasks[taskIndex]); 
+    }, [tasks, showModal])
 
     async function deleteTasks(id: number) {
         const confirm = window.confirm('Tem certeza que deseja apagar essa tarefa?')
@@ -52,7 +59,6 @@ export function TaskProvider({ children }: ContextProviderProps) {
             return response
         } else {
             closeModal()
-
         }
     }
 
@@ -67,7 +73,8 @@ export function TaskProvider({ children }: ContextProviderProps) {
                 setShowModal,
                 closeModal,
                 fetchTasks,
-                deleteTasks
+                deleteTasks,
+                modalOpen
             }}
         >
             {children}
