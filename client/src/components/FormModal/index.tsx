@@ -18,7 +18,8 @@ export function FormModal({ titleTask, descriptionTask }: FormModalProps) {
         taskData, 
         taskDataForm, 
         isCompletedLocal, 
-        handleCompleted 
+        handleCompleted,
+        removeTask
     } = useFormModalTask()
 
     return (
@@ -55,10 +56,7 @@ export function FormModal({ titleTask, descriptionTask }: FormModalProps) {
                 </section>
 
                 <button className='updateButton'>Alterar</button>
-                <button onClick={() => {
-                    closeModal();
-                    deleteTasks(taskData.id)
-                }} className='deleteButton'>Deletar</button>
+                <button onClick={(event) => removeTask(event)} className='deleteButton'>Deletar</button>
             </form>
             
             <ContainerCompleted isCompleted={isCompletedLocal}>
