@@ -48,7 +48,14 @@ export function Tasks() {
                     </>
                 }
 
-                {noTaskFound ? 'Tarefa não encontrada!' : null}
+                {
+                    noTaskFound ? 
+                        <div className="noTaskFound">
+                            <img src={Empty} alt="" />
+                            Tarefa não encontrada
+                        </div> 
+                    : null
+                }
 
                 {
                     noTask && (

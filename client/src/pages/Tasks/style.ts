@@ -37,6 +37,16 @@ export const Container = styled.div`
         opacity: .3;
         border: 1px solid ${props => props.theme["--red-500"]};
     }
+
+    .noTaskFound {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 1rem;
+        height: 15.6rem;
+        justify-content: center;
+        color: ${props => props.theme["--gray-400"]}
+    }
     
     .containerEmpty {
         margin-top: 7rem;
