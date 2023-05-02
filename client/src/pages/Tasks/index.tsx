@@ -49,12 +49,12 @@ export function Tasks() {
                 }
 
                 {
-                    noTaskFound ? 
+                    noTaskFound ?
                         <div className="noTaskFound">
                             <img src={Empty} alt="" />
                             Tarefa não encontrada
-                        </div> 
-                    : null
+                        </div>
+                        : null
                 }
 
                 {

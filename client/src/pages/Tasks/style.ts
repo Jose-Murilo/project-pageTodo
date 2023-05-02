@@ -38,6 +38,17 @@ export const Container = styled.div`
         border: 1px solid ${props => props.theme["--red-500"]};
     }
 
+    .tasksCompleted {
+        display: flex;
+        max-width: 500px;
+        margin: 0 auto;
+        padding-inline: 2rem;
+        /* background-color: red; */
+        align-items: center;
+        justify-content: space-between;
+        /* font-size: 1.4rem; */
+    }
+
     .noTaskFound {
         display: flex;
         flex-direction: column;
