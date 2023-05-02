@@ -10,12 +10,9 @@ type FormModalProps = {
 export function FormModal({ titleTask, descriptionTask }: FormModalProps) {
     const { register, handleSubmit } = useForm()
     const { 
-        closeModal, 
-        deleteTasks, 
         handleInputsChange, 
         onSubmit, 
-        taskCreatedDate, 
-        taskData, 
+        taskCreatedDate,  
         taskDataForm, 
         isCompletedLocal, 
         handleCompleted,
