@@ -1,4 +1,4 @@
-import { ChangeEvent, useCallback, useContext, useEffect, useState } from "react";
+import { ChangeEvent, FormEvent, useCallback, useContext, useEffect, useState } from "react";
 import { API } from "../../services/api";
 import { TaskContext } from "../../context";
 import { DataProps } from "../../@types/TypeApi";
@@ -58,26 +58,31 @@ export function useFormModalTask() {
                 setTasks((prevTasks) => prevTasks.map((task) =>
                     task.id === taskData.id ? { ...task, isCompleted: isCompletedLocal } : task
                 ));
+
                 if (
                     taskDataForm.titleTask === taskData.titleTask &&
                     taskDataForm.descriptionTask === taskData.descriptionTask
                 ) {
-                    alert("Você não modificou nada!");
-                    const confirm = window.confirm("Deseja modificar alguma coisa?");
-
-                    if (!confirm) {
-                        setIsCompletedLocal(taskData.isCompleted);
-                        return closeModal();
+                    if (taskData.isCompleted === isCompletedLocal) {
+                        const confirm = window.confirm("Você não modificou nada!\nDeseja modificar alguma coisa?");
+                        if (confirm) {
+                            return; // retorna sem fechar o modal
+                        } else {
+                            closeModal()
+                        }
+                    } else {
+                        alert("Task updated successfully");
                     }
                 } else {
-                    closeModal();
                     alert("Task updated successfully");
                 }
+                closeModal();
             }
 
             return fetchTasks();
         } catch (error: any) {
-            
+            console.log(error);
+
         }
     }
 
@@ -89,6 +94,13 @@ export function useFormModalTask() {
         })
     }
 
+    // função que ira remover a tarefa, ou seja ela vai simplesmente apagar a tarefa.
+    function removeTask(event: FormEvent) {
+        event.preventDefault();
+        closeModal();
+        deleteTasks(taskData.id)
+    }
+
     return {
         taskData,
         taskCreatedDate,
@@ -98,6 +110,7 @@ export function useFormModalTask() {
         closeModal,
         deleteTasks,
         isCompletedLocal,
-        handleCompleted
+        handleCompleted,
+        removeTask
     }
 }
