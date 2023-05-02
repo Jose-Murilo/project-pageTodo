@@ -50,6 +50,9 @@ export function TaskProvider({ children }: ContextProviderProps) {
             const response = await API.delete(`/${id}`)
             fetchTasks()
             return response
+        } else {
+            closeModal()
+
         }
     }
 
