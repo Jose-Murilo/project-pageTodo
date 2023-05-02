@@ -43,8 +43,10 @@ export function TaskProvider({ children }: ContextProviderProps) {
         setTasks(newData);
     };
 
+    // A função closeModal quando chamada ela irá fechar o modal.
     const closeModal = () => setShowModal(false);
 
+    // Além de abrir o modal, a função modalOpen, visando otimizar a performance do componente que a utiliza. A dependência tasks é utilizada para garantir que a função seja recriada apenas quando essa dependência mudar. A dependência showModal é utilizada para evitar que a função seja recriada desnecessariamente a cada renderização
     const modalOpen = useCallback((TaskID: number) => {
         setShowModal(true)
         const taskIndex = tasks?.findIndex(task => task.id === TaskID);
