@@ -33,6 +33,7 @@ export function useFormModalTask() {
         }
     }, [taskData, modalOpen]);
 
+    //A função handleCompleted é uma função usa o useCallback para memorizar a função e evitar renderizações desnecessárias, e ao ser executada, alterna o estado de uma variável booleana isCompletedLocal e atualiza o estado da propriedade isCompleted do objeto taskDataForm.
     const handleCompleted = useCallback(() => {
         setIsCompletedLocal((prev) => !prev);
         setTaskDataForm((prev) => ({ ...prev, isCompleted: !prev.isCompleted }));
