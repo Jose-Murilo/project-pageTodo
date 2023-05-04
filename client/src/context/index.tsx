@@ -50,7 +50,7 @@ export function TaskProvider({ children }: ContextProviderProps) {
     const modalOpen = useCallback((TaskID: number) => {
         setShowModal(true)
         const taskIndex = tasks?.findIndex(task => task.id === TaskID);
-        return setTaskData(tasks[taskIndex]); 
+        return setTaskData(tasks[taskIndex]);
     }, [tasks, showModal])
 
     async function deleteTasks(id: number) {
