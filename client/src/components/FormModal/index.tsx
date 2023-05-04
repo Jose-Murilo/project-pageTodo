@@ -9,12 +9,12 @@ type FormModalProps = {
 
 export function FormModal({ titleTask, descriptionTask }: FormModalProps) {
     const { register, handleSubmit } = useForm()
-    const { 
-        handleInputsChange, 
-        onSubmit, 
-        taskCreatedDate,  
-        taskDataForm, 
-        isCompletedLocal, 
+    const {
+        handleInputsChange,
+        onSubmit,
+        taskCreatedDate,
+        taskDataForm,
+        isCompletedLocal,
         handleCompleted,
         removeTask
     } = useFormModalTask()
@@ -55,11 +55,11 @@ export function FormModal({ titleTask, descriptionTask }: FormModalProps) {
                 <button className='updateButton'>Alterar</button>
                 <button onClick={(event) => removeTask(event)} className='deleteButton'>Deletar</button>
             </form>
-            
+
             <ContainerCompleted isCompleted={isCompletedLocal}>
                 <p>Está tarefa está: </p>
                 <button onClick={handleCompleted}>
-                    {isCompletedLocal ? 'Concluída': 'Não concluida'}
+                    {isCompletedLocal ? 'Concluída' : 'Não concluida'}
                 </button>
             </ContainerCompleted>
 
