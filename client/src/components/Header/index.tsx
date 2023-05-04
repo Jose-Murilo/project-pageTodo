@@ -27,15 +27,15 @@ export function Header() {
           </ul>
         </nav>
 
-        <ImgToggle 
-          src={toggle ? menuClose : menuOpen} 
-          onClick={() => setToggle(prevState => !prevState)} 
-          alt="" 
+        <ImgToggle
+          src={toggle ? menuClose : menuOpen}
+          onClick={() => setToggle(prevState => !prevState)}
+          alt=""
         />
 
-        <Menu 
-          isToggle={toggle} 
-          onSetToggle={setToggle} 
+        <Menu
+          isToggle={toggle}
+          onSetToggle={setToggle}
         />
       </div>
     </Container>
